@@ -45,3 +45,33 @@ let avgKoalas = calcAverage(65, 54, 49);
 
 console.log(`${checkWinner(avgDolphins, avgKoalas)} are the winners! 🏆`);
 
+
+avgDolphins = calcAverage(85, 54, 41);
+avgKoalas = calcAverage(23, 34, 27);
+
+console.log(`${checkWinner(avgDolphins, avgKoalas)} are the winners! 🏆`);
+
+/**
+ * Coding Challenge 2 updated
+ */
+
+console.log('Begin of coding challenge...');
+
+const calcTip = amount => {
+  if (amount >= 50 && amount <= 300) {
+    return .15 * amount;
+  } else {
+    return .2 * amount;
+  }
+}
+
+const bills = [125, 555, 44];
+const totals = [];
+
+for (let i = 0; i < bills.length; i++) {
+  console.log(`For a  bill of ${bills[i]}, the tip is ${calcTip(bills[i])}`);
+  totals.push(bills[i] + calcTip(bills[i]));
+}
+
+console.log('Totals...');
+console.log(totals);
