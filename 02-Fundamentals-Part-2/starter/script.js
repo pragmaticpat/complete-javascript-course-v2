@@ -57,11 +57,11 @@ console.log(`${checkWinner(avgDolphins, avgKoalas)} are the winners! 🏆`);
 
 console.log('Begin of coding challenge...');
 
-const calcTip = amount => {
-  if (amount >= 50 && amount <= 300) {
-    return .15 * amount;
+const calcTip = bill => {
+  if (bill >= 50 && bill <= 300) {
+    return .15 * bill;
   } else {
-    return .2 * amount;
+    return .2 * bill;
   }
 }
 
