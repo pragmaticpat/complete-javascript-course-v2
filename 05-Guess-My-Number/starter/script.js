@@ -9,6 +9,7 @@
 // document.querySelector('.guess').value = 23;
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
+let highScore = 0;
 const message = document.querySelector('.message');
 const defaultMessage = 'Start guessing...';
 let score = 20;
@@ -20,8 +21,13 @@ document.querySelector('.check').addEventListener('click', function () {
     if (!guess) {
       message.textContent = '😿 No number found';
     } else if (guess === secretNumber) {
-      score++;
+      score += 10;
       message.textContent = '🎉 You guessed it!';
+
+      if (score > highScore) {
+        highScore = score;
+        document.querySelector('.highscore').textContent = highScore;
+      }
 
       document.querySelector('body').style.backgroundColor = '#60b347';
       document.querySelector('.number').style.width = '30rem';
