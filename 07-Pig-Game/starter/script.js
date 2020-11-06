@@ -33,17 +33,27 @@ btnRoll.addEventListener('click', function () {
       `current--${activePlayer}`
     ).textContent = roundScore;
   } else {
-    document
-      .querySelector(`.player--${activePlayer}`)
-      .classList.toggle('player--active');
-
-    document
-      .querySelector(`.player--${activePlayer}`)
-      .classList.toggle('player--active');
-
-    // switch player
-    activePlayer = activePlayer ? 0 : 1;
-
-    roundScore = 0;
+    switchPlayer();
   }
 });
+
+btnHold.addEventListener('click', function () {
+  playerScores[activePlayer] += roundScore;
+  document.getElementById(`score--${activePlayer}`).textContent =
+    playerScores[activePlayer];
+  switchPlayer();
+});
+
+const player0CurrentEl = document.getElementById('current--0');
+const player1CurrentEl = document.getElementById('current--1');
+function switchPlayer() {
+  document.querySelector('.player--0').classList.toggle('player--active');
+
+  document.querySelector('.player--1').classList.toggle('player--active');
+
+  // switch player
+  activePlayer = activePlayer ? 0 : 1;
+  player0CurrentEl.textContent = 0;
+  player1CurrentEl.textContent = 0;
+  roundScore = 0;
+}
