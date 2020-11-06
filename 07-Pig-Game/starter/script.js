@@ -35,14 +35,15 @@ btnRoll.addEventListener('click', function () {
   } else {
     document
       .querySelector(`.player--${activePlayer}`)
-      .classList.remove('player--active');
+      .classList.toggle('player--active');
+
+    document
+      .querySelector(`.player--${activePlayer}`)
+      .classList.toggle('player--active');
 
     // switch player
     activePlayer = activePlayer ? 0 : 1;
 
-    document
-      .querySelector(`.player--${activePlayer}`)
-      .classList.add('player--active');
     roundScore = 0;
   }
 });
