@@ -1,5 +1,63 @@
 'use strict';
 
+/** Maps */
+
+const rest = new Map();
+rest.set('name', 'classico italiano');
+rest.set(1, 'firenze, italy');
+rest.set(2, 'lisbon, portugal');
+// console.log(rest);
+
+rest
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'We are open :D')
+  .set(false, 'We are closed :(');
+
+// console.log(rest.get('name'));
+// console.log(rest.get(true));
+// console.log(rest.get(1));
+
+const time = 12;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+console.log(rest.has('categories'));
+rest.delete(2);
+console.log(rest);
+console.log(rest.size);
+rest.clear();
+console.log(rest);
+
+const arr = [1, 2];
+rest.set(arr, 'Test');
+rest.set(document.querySelector('h1'), 'heading');
+console.log(rest);
+console.log(rest.get(arr));
+
+/*
+// Sets - unique lists
+const orderSet = new Set(['pasta', 'pizza', 'pizza', 'pasta', 'pizza']);
+console.log(orderSet);
+console.log(new Set('Patrick'));
+console.log(orderSet.size);
+console.log(orderSet.has('mushrooms'));
+console.log(orderSet.has('pizza'));
+orderSet.add('garlic bread');
+orderSet.add('garlic bread');
+// orderSet.delete('pizza');
+// orderSet.clear();
+console.log(orderSet);
+
+for (const order of orderSet) console.log(order);
+
+// main usecase for a set is to remove dups
+const staff = ['waiter', 'chef', 'waiter', 'manager', 'chef', 'waiter'];
+console.log(staff);
+const staffUnique = [...new Set(staff)];
+console.log(staffUnique);
+console.log(new Set('Patrick').size);
+*/
 ///////////////////////////////////////
 // Coding Challenge #2
 
@@ -69,11 +127,6 @@ const game = {
 for (let index = 0; index < game.scored.length; index++) {
   const player = game.scored[index];
   console.log(`Goal ${index + 1}: ${player}`);
-}
-
-// 1 Jonas
-for (const [i, player] of game.score.entries()) {
-  console.log(`Goal ${i + 1}: ${player}`);
 }
 
 // 2
