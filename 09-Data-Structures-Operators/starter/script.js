@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 const weekdays = ['mon', 'tues', 'wed', 'thur', 'fri', 'sat', 'sun'];
 
 const openingHours = {
@@ -47,6 +48,26 @@ const restaurant = {
   },
 };
 
+const properties = Object.keys(openingHours);
+console.log(properties);
+
+let openStr = `We are open on ${properties.length} days: `;
+
+for (const day of properties) openStr += `${day}, `;
+
+console.log(openStr);
+
+const values = Object.values(openingHours);
+console.log(values);
+
+const entries = Object.entries(openingHours);
+// console.log(entries);
+
+for (const [day, { open, close }] of entries) {
+  console.log(`On ${day}, we open at ${open} and close at ${close}`);
+}
+*/
+/*
 if (restaurant.openingHours && restaurant.openingHours.mon) {
   console.log(restaurant.openingHours.mon);
 }
@@ -70,7 +91,7 @@ console.log(restaurant.orderRisotto?.(0, 1) ?? 'Method does not exist');
 const users = [{ name: 'patrick', email: 'none@none.net' }];
 
 console.log(users[0]?.name ?? 'User array is empty');
-
+*/
 /*
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 for (const item of menu) console.log(item);
