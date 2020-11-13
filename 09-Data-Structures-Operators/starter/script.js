@@ -71,9 +71,15 @@ for (let index = 0; index < game.scored.length; index++) {
   console.log(`Goal ${index + 1}: ${player}`);
 }
 
+// 1 Jonas
+for (const [i, player] of game.score.entries()) {
+  console.log(`Goal ${i + 1}: ${player}`);
+}
+
 // 2
 let oddsTotal = 0;
-const odds = Object.entries(game.odds);
+const odds = Object.entries(game.odds); // he used object.values(game.odds)
+
 for (const [team, odd] of odds) {
   oddsTotal += odd;
 }
