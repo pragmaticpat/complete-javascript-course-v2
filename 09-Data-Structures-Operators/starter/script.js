@@ -42,16 +42,19 @@ document.querySelector('button').addEventListener('click', function () {
   let maxLen = 0;
   const camels = [];
 
-  for (let index = 0; index < variables.length; index++) {
-    const element = variables[index].toLowerCase().trim();
-    maxLen = element.length > maxLen ? element.length : maxLen;
-    const parts = element.split('_');
-    const camel = parts[0] + parts[1][0].toUpperCase() + parts[1].slice(1);
+  for (const [index, variable] of variables.entries()) {
+    const standardized = variable.toLowerCase().trim();
+    const [prefix, suffix] = standardized.split('_'); //updated to use destructuring. MUCH nicer
+    const camel = prefix + suffix[0].toUpperCase() + suffix.slice(1);
+    console.log(camel.padEnd(maxLen + 10, ' ') + '✅'.repeat(index + 1));
+
+    // handle long vars
+    maxLen = standardized.length > maxLen ? variable.length : maxLen;
     camels.push(camel);
   }
 
-  for (let index = 0; index < camels.length; index++) {
-    const camel = camels[index];
+  console.log('\n\n======= begin handling long vars ========\n\n');
+  for (const [index, camel] of camels.entries()) {
     console.log(camel.padEnd(maxLen + 5, ' ') + '✅'.repeat(index + 1));
   }
 });
