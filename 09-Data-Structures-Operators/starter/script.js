@@ -30,7 +30,7 @@ const gameEvents = new Map([
 ]);
 
 // 1
-const events = new Set(gameEvents.values());
+const events = [...new Set(gameEvents.values())]; // failed to convert to an ARRAY
 console.log(events);
 
 // 2
@@ -50,11 +50,20 @@ console.log(
   `An event happened, on average, every ${total / gameEvents.size} minutes`
 );
 
+// jonas
+console.log(
+  `An even happened, on average, every ${90 / gameEvents.size} minutes`
+);
+
+console.log(
+  `An even happened, on average, every ${
+    [...gameEvents.keys()].pop() / gameEvents.size
+  } minutes`
+);
+
 // 4
 for (const [time, event] of gameEvents) {
-  console.log(
-    `${time > 45 ? '[SECOND HALF] ' : '[FIRST HALF] '} ${time}: ${event}`
-  );
+  console.log(`[${time > 45 ? 'SECOND' : 'FIRST'} HALF] ${time}: ${event}`);
 }
 
 /** Maps */
