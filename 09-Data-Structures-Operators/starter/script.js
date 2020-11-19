@@ -59,6 +59,8 @@ document.querySelector('button').addEventListener('click', function () {
   }
 });
 
+// Here I am trying out the new cherry mx brown keyboard - it's pretty damn incredible!
+
 /*
 console.log('a+very+nice+string'.split('+'));
 console.log('patrick sullivan'.split(' '));
