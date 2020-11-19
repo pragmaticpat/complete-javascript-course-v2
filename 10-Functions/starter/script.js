@@ -31,3 +31,34 @@ createBooking('LJ1235', 5);
 console.log('Cannot skip parameters...');
 createBooking('lksjhdf', undefined, 7);
 */
+
+const flight = 'LH234';
+const patrick = {
+  name: 'Patrick Sullivan',
+  passport: 2586746453,
+};
+
+const checkIn = function (flightNum, passenger) {
+  flightNum = 'LKH999';
+  passenger.name = 'Mr. ' + passenger.name;
+
+  if (passenger.passport === 2586746453) {
+    alert('check in');
+  } else {
+    alert('wrong passport! 😿');
+  }
+};
+
+// checkIn(flight, patrick);
+// console.log(flight);
+// console.log(patrick);
+
+const flightNum = flight;
+const passenger = patrick;
+
+const newPassport = function (person) {
+  person.passport = Math.trunc(Math.random() + 1000000000000);
+};
+
+newPassport(patrick);
+checkIn(flight, patrick);
