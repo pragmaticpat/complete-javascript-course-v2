@@ -31,7 +31,7 @@ createBooking('LJ1235', 5);
 console.log('Cannot skip parameters...');
 createBooking('lksjhdf', undefined, 7);
 */
-
+/*
 const flight = 'LH234';
 const patrick = {
   name: 'Patrick Sullivan',
@@ -62,3 +62,31 @@ const newPassport = function (person) {
 
 newPassport(patrick);
 checkIn(flight, patrick);
+*/
+
+const oneWord = function (str) {
+  return str.replace(/ /g, '').toLowerCase();
+};
+
+const upperFirstWord = function (str) {
+  const [firstWord, ...others] = str.split(' ');
+  return [firstWord.toUpperCase(), ...others].join(' ');
+};
+
+const transformer = function (str, fn) {
+  console.log(`Transformed string: ${fn(str)}`);
+
+  console.log(`Transformed by ${fn.name}`);
+};
+
+transformer('Javascript is the best!', upperFirstWord);
+transformer('JavaScript is the best!', oneWord);
+
+// JS uses callback functions all the time - basically the same as pub sub / event handling in C#, etc
+const high5 = function () {
+  console.log('🙌');
+};
+
+document.body.addEventListener('click', high5);
+
+['Jonas', 'Martha', 'Adam'].forEach(high5);
