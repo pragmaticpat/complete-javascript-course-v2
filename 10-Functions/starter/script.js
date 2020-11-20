@@ -93,6 +93,7 @@ document.body.addEventListener('click', high5);
 ['Jonas', 'Martha', 'Adam'].forEach(high5);
 */
 
+/*
 const greet = function (greeting) {
   return function (name) {
     console.log(`${greeting} ${name}`);
@@ -106,3 +107,46 @@ greet('Hello')('Jonas');
 const greetArrow = greeting => name => console.log(`${greeting} ${name}`);
 
 greetArrow('Hello')('Arrow function!');
+*/
+
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a flight on ${this.airline} flight ${this.iataCode}${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}` });
+  },
+};
+
+lufthansa.book(335, 'patrick');
+lufthansa.book(337, 'glenn');
+console.log(lufthansa);
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+const book = lufthansa.book;
+
+book.call(eurowings, 400, 'Caitlin');
+book.call(lufthansa, 349, 'Laura Cooper');
+
+const swiss = {
+  airline: 'Swiss Airlines',
+  iataCode: 'SA',
+  bookings: [],
+};
+
+book.call(swiss, 334, 'Laura Cooper');
+
+const flightData = [583, 'George Cooper'];
+
+book.apply(swiss, flightData); // not really used any more since .call exists, and can spread the array params
+console.log(swiss);
+
+book.call(swiss, ...flightData);
