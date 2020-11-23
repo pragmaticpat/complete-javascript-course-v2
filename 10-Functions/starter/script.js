@@ -150,3 +150,30 @@ book.apply(swiss, flightData); // not really used any more since .call exists, a
 console.log(swiss);
 
 book.call(swiss, ...flightData);
+
+// Bind
+const bookEW = book.bind(eurowings);
+const bookLH = book.bind(lufthansa);
+const bookLX = book.bind(swiss);
+
+bookEW(23, 'Steven Williams');
+
+const bookEW23 = book.bind(eurowings, 23); //partial application
+bookEW23('patrick');
+bookEW23('martha');
+
+// with event listeners
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  console.log(this);
+  this.planes++;
+  console.log(this.planes);
+};
+
+// lufthansa.buyPlane();
+
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa)); //manally apply "this" since "this" would otherwise just be the eventhandler / button
+
+// partial application
