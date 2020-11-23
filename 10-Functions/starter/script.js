@@ -261,3 +261,76 @@ document
 
 poll.displayResults.call({ answers: [5, 2, 3] });
 poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
+
+const runOne = function () {
+  console.log('This will never run again!');
+};
+runOne();
+
+// IIFE's
+(function () {
+  console.log('I will only run this time.. never needed ever again!');
+  const isPrivate = 23;
+})();
+
+(() => console.log('here i am again, now as an arrow function!'))();
+
+// IIFE's aren't really used any more. Now we just use blocks
+// If you need to only run a function once ever.. then the IIFE's are still useful even in modern JS
+
+// CLOSURES!!!!
+
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booker = secureBooking();
+booker();
+booker();
+booker();
+
+// function always has access to the variable environment of the execution context in which the function was created, even after that execution context is gone
+console.dir(booker);
+
+// More on closures!!
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+g();
+f();
+h(); // reassigning .... updating its closure
+f();
+
+// another example.. timer!
+
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
+
+  setTimeout(function () {
+    // still has access to the variables from the parent's execution context! sweet!
+    console.log(`We are now baording all ${n} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+
+boardPassengers(180, 3);
