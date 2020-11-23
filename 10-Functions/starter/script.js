@@ -333,4 +333,5 @@ const boardPassengers = function (n, wait) {
   console.log(`Will start boarding in ${wait} seconds`);
 };
 
+const perGroup = 1000; //lower priority, and not used since this var exists in the closure / variable environment
 boardPassengers(180, 3);
