@@ -73,6 +73,26 @@ const currencies = new Map([
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+  movements.forEach((mov, i) => {
+    const type = mov < 0 ? 'withdrawal' : 'deposit';
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+      <div class="movements__date">3 days ago</div>
+      <div class="movements__value">${Math.abs(mov)}</div>
+    </div>`;
+
+    containerMovements.insertAdjacentHTML('afterBegin', html);
+    // containerMovements.insertAdjacentHTML('beforeEnd', html);
+  });
+};
+
+displayMovements(account1.movements);
+
 /////////////////////////////////////////////////
 
 // SLICE
