@@ -74,3 +74,73 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+// SLICE
+// console.log('slicing');
+// let arr = ['a', 'b', 'c', 'd', 'e'];
+// console.log(arr.slice(2));
+// console.log(arr);
+// console.log(arr.slice(2, 4));
+// console.log(arr.slice(-2));
+// console.log(arr.slice(-1));
+// console.log(arr.slice(1, -2));
+
+// console.log(arr.slice());
+// console.log([...arr]); //either one works just fine - using slice is better for chaining
+
+// // SPLICE - actually mutates the original array
+// console.log('splicing...');
+// console.log(arr.splice(-1));
+// console.log(arr);
+// console.log(arr.splice(1, 2));
+// console.log(arr);
+
+// // Reverse, mutates the original array!
+// arr = ['a', 'b', 'c', 'd', 'e'];
+
+// let arr2 = ['j', 'i', 'h', 'g', 'f'];
+// console.log(arr2.reverse());
+// console.log(arr2);
+
+// // concat - to join 2 arrays
+// const letters = arr.concat(arr2);
+// console.log(letters);
+// console.log([...arr, ...arr2]);
+
+// // JOIN
+// console.log(letters.join(' - '));
+
+// // end of first arrays lecture
+
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// // cannot interrupt control flow in a forEach
+// movements.forEach((movement, i, arr) => {
+//   if (movement > 0)
+//     console.log(`Movement ${i + 1} was a deposit of ${movement}`);
+//   else
+//     console.log(`Movement ${i + 1} was a withdrawal of ${Math.abs(movement)}`);
+// });
+
+// // CAN use break and continue in forOf
+// for (const [i, v] of movements.entries()) {
+//   if (v > 0) console.log(`Movement ${i} was a deposit of ${v}`);
+//   else console.log(`Movement ${i} was a withdrawal of ${Math.abs(v)}`);
+// }
+
+// Foreach with maps and sets
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
+
+// currencies.forEach((value, key, map) => {
+//   console.log(`${key}: ${value}`);
+// });
+
+// const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+// console.log(currenciesUnique);
+// currenciesUnique.forEach((value, _, map) => {
+//   console.log(`${value}: ${value}`);
+// });
