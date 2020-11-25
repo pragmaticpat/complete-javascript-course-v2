@@ -91,6 +91,23 @@ const displayMovements = function (movements) {
   });
 };
 
+const createUserName = userName => {
+  return userName
+    .toLocaleLowerCase()
+    .split(' ')
+    .map(namePart => namePart[0])
+    .join('');
+};
+
+accounts.forEach(account => {
+  account.userName = createUserName(account.owner);
+});
+
+const userName = createUserName('Steven Thomas Williams');
+console.log(userName);
+
+console.log(accounts);
+
 displayMovements(account1.movements);
 
 /////////////////////////////////////////////////
@@ -216,3 +233,12 @@ for (const mov of movements) {
 }
 
 console.log(arrUsd);
+
+const movementDescriptions = movements.map(
+  (mov, i) =>
+    `Movement ${i + 1}: you ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+      mov
+    )}`
+);
+
+console.log(movementDescriptions);
