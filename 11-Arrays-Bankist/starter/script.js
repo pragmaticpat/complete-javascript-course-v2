@@ -65,50 +65,64 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const displayMovements = function (movements) {
-  containerMovements.innerHTML = '';
-  movements.forEach((mov, i) => {
-    const type = mov < 0 ? 'withdrawal' : 'deposit';
-    const html = `
-    <div class="movements__row">
-      <div class="movements__type movements__type--${type}">${
-      i + 1
-    } ${type}</div>
-      <div class="movements__date">3 days ago</div>
-      <div class="movements__value">${Math.abs(mov)}</div>
-    </div>`;
+// const displayMovements = function (movements) {
+//   containerMovements.innerHTML = '';
+//   movements.forEach((mov, i) => {
+//     const type = mov < 0 ? 'withdrawal' : 'deposit';
+//     const html = `
+//     <div class="movements__row">
+//       <div class="movements__type movements__type--${type}">${
+//       i + 1
+//     } ${type}</div>
+//       <div class="movements__date">3 days ago</div>
+//       <div class="movements__value">${Math.abs(mov)}</div>
+//     </div>`;
 
-    containerMovements.insertAdjacentHTML('afterBegin', html);
-    // containerMovements.insertAdjacentHTML('beforeEnd', html);
-  });
-};
+//     containerMovements.insertAdjacentHTML('afterBegin', html);
+//     // containerMovements.insertAdjacentHTML('beforeEnd', html);
+//   });
+// };
 
-const createUserName = userName => {
-  return userName
-    .toLocaleLowerCase()
-    .split(' ')
-    .map(namePart => namePart[0])
-    .join('');
-};
+// const createUserName = userName => {
+//   return userName
+//     .toLocaleLowerCase()
+//     .split(' ')
+//     .map(namePart => namePart[0])
+//     .join('');
+// };
 
-accounts.forEach(account => {
-  account.userName = createUserName(account.owner);
-});
+// accounts.forEach(account => {
+//   account.userName = createUserName(account.owner);
+// });
 
-const userName = createUserName('Steven Thomas Williams');
-console.log(userName);
+// const userName = createUserName('Steven Thomas Williams');
+// console.log(userName);
 
-console.log(accounts);
+// console.log(accounts);
 
-displayMovements(account1.movements);
+// displayMovements(account1.movements);
+console.log('--- deposits ---');
+const deposits = movements.filter(mov => mov > 0); //preferred due to being chain-friendly
+console.log(deposits);
+// console.log(movements);
+
+// const depositsfor = [];
+// for (const mov of movements) {
+//   if (mov > 0) depositsfor.push(mov);
+// }
+// console.log(depositsfor);
+
+console.log('--- withdrawals ---');
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
 
 /////////////////////////////////////////////////
 
@@ -221,24 +235,24 @@ GOOD LUCK 😀
 // const kate2 = [10, 5, 6, 1, 4];
 // checkDogs(julia2, kate2);
 
-const eurToUsd = 1.1;
-const movementsUsd = movements.map(movement => movement * eurToUsd);
+// const eurToUsd = 1.1;
+// const movementsUsd = movements.map(movement => movement * eurToUsd);
 
-console.log(movements);
-console.log(movementsUsd);
+// console.log(movements);
+// console.log(movementsUsd);
 
-const arrUsd = [];
-for (const mov of movements) {
-  arrUsd.push(mov * eurToUsd);
-}
+// const arrUsd = [];
+// for (const mov of movements) {
+//   arrUsd.push(mov * eurToUsd);
+// }
 
-console.log(arrUsd);
+// console.log(arrUsd);
 
-const movementDescriptions = movements.map(
-  (mov, i) =>
-    `Movement ${i + 1}: you ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
-      mov
-    )}`
-);
+// const movementDescriptions = movements.map(
+//   (mov, i) =>
+//     `Movement ${i + 1}: you ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+//       mov
+//     )}`
+// );
 
-console.log(movementDescriptions);
+// console.log(movementDescriptions);
