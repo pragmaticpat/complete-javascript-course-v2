@@ -186,20 +186,33 @@ TEST DATA 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
 GOOD LUCK 😀
 */
 
-const checkDogs = function (dogsJulia, dogsKate) {
-  const juliaCorrected = dogsJulia.slice(1, -2);
-  [...juliaCorrected, ...dogsKate].forEach((dog, i) => {
-    if (dog < 3) console.log(`Dog ${i + 1} is still a puppy 🐶`);
-    else console.log(`Dog ${i + 1} is an adult, and is ${dog} years old`);
-  });
-};
+// const checkDogs = function (dogsJulia, dogsKate) {
+//   const juliaCorrected = dogsJulia.slice(1, -2);
+//   [...juliaCorrected, ...dogsKate].forEach((dog, i) => {
+//     if (dog < 3) console.log(`Dog ${i + 1} is still a puppy 🐶`);
+//     else console.log(`Dog ${i + 1} is an adult, and is ${dog} years old`);
+//   });
+// };
 
-console.log('----  test data 1 ----');
-const julia = [3, 5, 2, 12, 7];
-const kate = [4, 1, 15, 8, 3];
-checkDogs(julia, kate);
+// console.log('----  test data 1 ----');
+// const julia = [3, 5, 2, 12, 7];
+// const kate = [4, 1, 15, 8, 3];
+// checkDogs(julia, kate);
 
-console.log('----  test data 2 ----');
-const julia2 = [9, 16, 6, 8, 3];
-const kate2 = [10, 5, 6, 1, 4];
-checkDogs(julia2, kate2);
+// console.log('----  test data 2 ----');
+// const julia2 = [9, 16, 6, 8, 3];
+// const kate2 = [10, 5, 6, 1, 4];
+// checkDogs(julia2, kate2);
+
+const eurToUsd = 1.1;
+const movementsUsd = movements.map(movement => movement * eurToUsd);
+
+console.log(movements);
+console.log(movementsUsd);
+
+const arrUsd = [];
+for (const mov of movements) {
+  arrUsd.push(mov * eurToUsd);
+}
+
+console.log(arrUsd);
