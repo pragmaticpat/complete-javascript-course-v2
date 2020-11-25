@@ -91,17 +91,24 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   });
 // };
 
-// const createUserName = userName => {
-//   return userName
-//     .toLocaleLowerCase()
-//     .split(' ')
-//     .map(namePart => namePart[0])
-//     .join('');
-// };
+const createUserName = userName => {
+  return userName
+    .toLocaleLowerCase()
+    .split(' ')
+    .map(namePart => namePart[0])
+    .join('');
+};
 
-// accounts.forEach(account => {
-//   account.userName = createUserName(account.owner);
-// });
+const calcPrintBalance = function (movements) {
+  const balance = movements.reduce((acc, movement) => acc + movement, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+
+calcPrintBalance(account1.movements);
+
+accounts.forEach(account => {
+  account.userName = createUserName(account.owner);
+});
 
 // const userName = createUserName('Steven Thomas Williams');
 // console.log(userName);
@@ -109,20 +116,20 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // console.log(accounts);
 
 // displayMovements(account1.movements);
-console.log('--- deposits ---');
-const deposits = movements.filter(mov => mov > 0); //preferred due to being chain-friendly
-console.log(deposits);
-// console.log(movements);
+// console.log('--- deposits ---');
+// const deposits = movements.filter(mov => mov > 0); //preferred due to being chain-friendly
+// console.log(deposits);
+// // console.log(movements);
 
-// const depositsfor = [];
-// for (const mov of movements) {
-//   if (mov > 0) depositsfor.push(mov);
-// }
-// console.log(depositsfor);
+// // const depositsfor = [];
+// // for (const mov of movements) {
+// //   if (mov > 0) depositsfor.push(mov);
+// // }
+// // console.log(depositsfor);
 
-console.log('--- withdrawals ---');
-const withdrawals = movements.filter(mov => mov < 0);
-console.log(withdrawals);
+// console.log('--- withdrawals ---');
+// const withdrawals = movements.filter(mov => mov < 0);
+// console.log(withdrawals);
 
 /////////////////////////////////////////////////
 
@@ -256,3 +263,19 @@ GOOD LUCK 😀
 // );
 
 // console.log(movementDescriptions);
+
+console.log(movements);
+const balance = movements.reduce((acc, movement) => {
+  return acc + movement;
+}, 0);
+console.log(balance);
+
+// important to prepare yourself for functional paradigm, with map, filter, reduce
+
+// Maximum value
+console.log('---- max value ----');
+const maxMovement = movements.reduce(
+  (acc, movement) => (movement > acc ? movement : acc),
+  movements[0]
+);
+console.log(maxMovement);
