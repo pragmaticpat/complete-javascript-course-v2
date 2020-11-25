@@ -305,8 +305,11 @@ const testData2 = [16, 6, 10, 5, 6, 1, 4];
 const calcAverageHumanage = function (dogAges) {
   const humanAges = dogAges
     .map(age => (age > 2 ? 16 + age * 4 : age * 2))
-    .filter(age => age > 18);
-  return humanAges.reduce((acc, age) => acc + age) / humanAges.length;
+    .filter(age => age > 18)
+    .reduce((acc, age, _, arr) => acc + age / arr.length, 0); //ahh! I like this even better!
+  // return humanAges.reduce((acc, age) => acc + age) / humanAges.length;
+  // put this all into a single map-filter-reduce...
+  return humanAges;
 };
 
 console.log(calcAverageHumanage(testData1));
