@@ -99,36 +99,31 @@ const createUserName = userName => {
     .join('');
 };
 
-const calcPrintBalance = function (movements) {
+const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, movement) => acc + movement, 0);
   labelBalance.textContent = `${balance} €`;
 };
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (account) {
+  const incomes = account.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const debits = movements
+  const debits = account.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(debits)}€`;
 
-  const interest = movements
+  const interest = account.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * account.interestRate) / 100)
     .filter((interests, i, arr) => {
-      console.log(arr);
       return interests >= 1;
     })
     .reduce((acc, interestDeposit) => acc + interestDeposit);
   labelSumInterest.textContent = `${interest}€`;
 };
-
-calcDisplaySummary(account1.movements);
-
-calcPrintBalance(account1.movements);
 
 accounts.forEach(account => {
   account.userName = createUserName(account.owner);
@@ -139,7 +134,34 @@ const userName = createUserName('Steven Thomas Williams');
 
 // console.log(accounts);
 
-displayMovements(account1.movements);
+// Event Handler
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+  //prevent form from submitting
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.userName === inputLoginUsername.value
+  );
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    labelWelcome.textContent = `Welcome back ${
+      currentAccount.owner.split(' ')[0]
+    }!`;
+
+    containerApp.style.opacity = 100;
+
+    // clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+
+    displayMovements(currentAccount.movements);
+    calcDisplayBalance(currentAccount.movements);
+    calcDisplaySummary(currentAccount);
+  }
+});
+
 // console.log('--- deposits ---');
 // const deposits = movements.filter(mov => mov > 0); //preferred due to being chain-friendly
 // console.log(deposits);
@@ -341,16 +363,16 @@ GOOD LUCK 😀
 
 const euroToUsd = 1.1;
 
-// Data Pipeline
-const totalDeposits = movements
-  .filter(mov => mov > 0)
-  .map((mov, _, arr) => {
-    // console.log(arr);
-    return mov * euroToUsd;
-  })
-  .reduce((acc, mov) => acc + mov, 0);
+// // Data Pipeline
+// const totalDeposits = movements
+//   .filter(mov => mov > 0)
+//   .map((mov, _, arr) => {
+//     // console.log(arr);
+//     return mov * euroToUsd;
+//   })
+//   .reduce((acc, mov) => acc + mov, 0);
 
-console.log(totalDeposits);
+// console.log(totalDeposits);
 
 /* 
 Coding Challenge #3
@@ -363,14 +385,23 @@ TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 GOOD LUCK 😀
 */
 
-const calcAverageHumanage = dogAges =>
-  dogAges
-    .map(age => (age > 2 ? 16 + age * 4 : age * 2))
-    .filter(age => age > 18)
-    .reduce((acc, age, _, arr) => acc + age / arr.length, 0); //ahh! I like this even better!
+// const calcAverageHumanage = dogAges =>
+//   dogAges
+//     .map(age => (age > 2 ? 16 + age * 4 : age * 2))
+//     .filter(age => age > 18)
+//     .reduce((acc, age, _, arr) => acc + age / arr.length, 0); //ahh! I like this even better!
 
-console.log('Here is the first test data set');
-console.log(calcAverageHumanage([5, 2, 4, 1, 15, 8, 3]));
+// console.log('Here is the first test data set');
+// console.log(calcAverageHumanage([5, 2, 4, 1, 15, 8, 3]));
 
-console.log('Here is the second test data set');
-console.log(calcAverageHumanage([16, 6, 10, 5, 6, 1, 4]));
+// console.log('Here is the second test data set');
+// console.log(calcAverageHumanage([16, 6, 10, 5, 6, 1, 4]));
+
+// const firstWithdrawal = movements.find(mov => mov < 0);
+// console.log(movements);
+// console.log(firstWithdrawal);
+
+// console.log(accounts);
+
+// const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+// console.log(account);
