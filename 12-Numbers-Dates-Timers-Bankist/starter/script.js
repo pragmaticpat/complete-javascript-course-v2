@@ -350,39 +350,76 @@ btnSort.addEventListener('click', function (e) {
 
 // 169 - Bigint! 💪
 
-console.log(2 ** 53 - 1);
-console.log(Number.MAX_SAFE_INTEGER);
-console.log(2 ** 53 + 0); // start losing precision!!!!
-console.log(2 ** 53 + 1);
-console.log(2 ** 53 + 2);
-console.log(2 ** 53 + 3);
-console.log(2 ** 53 + 4);
+// console.log(2 ** 53 - 1);
+// console.log(Number.MAX_SAFE_INTEGER);
+// console.log(2 ** 53 + 0); // start losing precision!!!!
+// console.log(2 ** 53 + 1);
+// console.log(2 ** 53 + 2);
+// console.log(2 ** 53 + 3);
+// console.log(2 ** 53 + 4);
 
-console.log(1982734091273490812734091278340983709823745n); // "n" suffix transforms the number into a bigint so it can be displayed accurately
+// console.log(1982734091273490812734091278340983709823745n); // "n" suffix transforms the number into a bigint so it can be displayed accurately
 
-console.log(BigInt(1982734091273490812734091278340983709823745)); //yikes! still failed to transform and be consistent!
+// console.log(BigInt(1982734091273490812734091278340983709823745)); //yikes! still failed to transform and be consistent!
 
-// Operations
-console.log(10000n + 10000n);
+// // Operations
+// console.log(10000n + 10000n);
 
-console.log(9007199254740991n + 1n);
-console.log(9007199254740991n + 2n);
-console.log(9007199254740991n + 3n);
-console.log(9007199254740991n + 4n);
-// console.log(Math.sqrt(16n)); won't work!
+// console.log(9007199254740991n + 1n);
+// console.log(9007199254740991n + 2n);
+// console.log(9007199254740991n + 3n);
+// console.log(9007199254740991n + 4n);
+// // console.log(Math.sqrt(16n)); won't work!
 
-const huge = 982736498237649827364n;
-const num = 23;
-console.log(huge * BigInt(23));
+// const huge = 982736498237649827364n;
+// const num = 23;
+// console.log(huge * BigInt(23));
 
-// Exceptions
-console.log(20n > 15);
-console.log(20n === 20);
-console.log(typeof 20n);
-console.log(20n == '20');
+// // Exceptions
+// console.log(20n > 15);
+// console.log(20n === 20);
+// console.log(typeof 20n);
+// console.log(20n == '20');
 
-console.log(huge + ' is really big!!!!');
+// console.log(huge + ' is really big!!!!');
 
-console.log('--- divisions with bigint ---');
-console.log(10n / 3n);
-console.log(10 / 3);
+// console.log('--- divisions with bigint ---');
+// console.log(10n / 3n);
+// console.log(10 / 3);
+
+// 170 - Date and Times!
+
+// // Create a date
+// const now = new Date();
+// console.log(now);
+
+// console.log(new Date('2020-12-29'));
+// console.log(new Date('Dec 29 2020 15:15:39'));
+
+// console.log(new Date(account1.movementsDates[0]));
+
+// console.log(new Date(2038, 10, 19, 15, 23, 5));
+// console.log(new Date(2037, 10, 31));
+
+// console.log(new Date(0));
+// console.log(new Date(3 * 24 * 60 * 60 * 1000));
+
+// working with dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime()); //number of seconds since epoch
+console.log(new Date(2142274980000));
+
+console.log(Date.now());
+
+// there are SET versions of all of these methods
+future.setFullYear(2040);
+console.log(future);
