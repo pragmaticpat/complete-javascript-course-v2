@@ -289,38 +289,61 @@ btnSort.addEventListener('click', function (e) {
 // console.log(Number.isInteger('23/0'));
 
 // 167
-console.log(Math.sqrt(25));
-console.log(25 ** (1 / 2));
-console.log(8 ** (1 / 3));
-console.log(Math.max(3, 3453456, '234', 435, 6, 7, 8));
-console.log(Math.min(3, 3453456, 3, 435, 6, 7, 8));
-console.log(Math.PI * Number.parseFloat('10px') ** 2);
+// console.log(Math.sqrt(25));
+// console.log(25 ** (1 / 2));
+// console.log(8 ** (1 / 3));
+// console.log(Math.max(3, 3453456, '234', 435, 6, 7, 8));
+// console.log(Math.min(3, 3453456, 3, 435, 6, 7, 8));
+// console.log(Math.PI * Number.parseFloat('10px') ** 2);
 
-console.log(Math.floor(Math.random() * 6) + 1);
+// console.log(Math.floor(Math.random() * 6) + 1);
 
-const randomInt = (min, max) =>
-  Math.trunc(Math.random() * (max - min) + 1) + min;
-console.log(randomInt(10, 20));
-console.log(randomInt(-20, -10));
+// const randomInt = (min, max) =>
+//   Math.trunc(Math.random() * (max - min) + 1) + min;
+// console.log(randomInt(10, 20));
+// console.log(randomInt(-20, -10));
 
-// rounding integers
-console.log(Math.trunc(23.3));
+// // rounding integers
+// console.log(Math.trunc(23.3));
 
-console.log(Math.round(23.3));
-console.log(Math.round(23.5));
+// console.log(Math.round(23.3));
+// console.log(Math.round(23.5));
 
-console.log(Math.ceil(23.3));
-console.log(Math.ceil(23.5));
+// console.log(Math.ceil(23.3));
+// console.log(Math.ceil(23.5));
 
-console.log(Math.floor(23.5));
-console.log(Math.floor(23.3));
+// console.log(Math.floor(23.5));
+// console.log(Math.floor(23.3));
 
-console.log(Math.floor(-23.5));
-console.log(Math.floor(-23.3));
-console.log(Math.trunc(-23.5));
-console.log(Math.trunc(-23.3));
+// console.log(Math.floor(-23.5));
+// console.log(Math.floor(-23.3));
+// console.log(Math.trunc(-23.5));
+// console.log(Math.trunc(-23.3));
 
-// rounding decimals
-console.log((2.7).toFixed(0)); //always returns a string, not a number!
-console.log((2.7).toFixed(3));
-console.log(+(2.357).toFixed(3));
+// // rounding decimals
+// console.log((2.7).toFixed(0)); //always returns a string, not a number!
+// console.log((2.7).toFixed(3));
+// console.log(+(2.357).toFixed(3));
+
+// 168
+console.log(5 % 2);
+console.log(5 / 2);
+
+// I'm already familiar with mod operator
+
+console.log(6 % 2);
+console.log(7 % 2);
+
+const isEven = n => n % 2 === 0;
+
+console.log(isEven(7));
+console.log(isEven(9));
+console.log(isEven(11));
+console.log(isEven(12));
+
+labelBalance.addEventListener('click', () => {
+  document.querySelectorAll('.movements__row').forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = 'lightgrey';
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+});
