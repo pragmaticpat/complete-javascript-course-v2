@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +104,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out.toFixed(2))}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = +inputLoanAmount.value;
+  const amount = Math.floor(+inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -252,38 +252,75 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 // LECTURES
 
-console.log(23 === 23.0);
+// console.log(23 === 23.0);
 
-// base 10 is 0 to 9
-// binary base 2 is 0 & 1
+// // base 10 is 0 to 9
+// // binary base 2 is 0 & 1
 
-console.log(0.1 + 0.2); //running joke here!
+// console.log(0.1 + 0.2); //running joke here!
 
-console.log(Number('23'));
-console.log(+'23'); //shortcut conversion to number
+// console.log(Number('23'));
+// console.log(+'23'); //shortcut conversion to number
 
-// parsing
-console.log(Number.parseInt('30px', 10));
-console.log(Number.parseInt('e30', 10));
+// // parsing
+// console.log(Number.parseInt('30px', 10));
+// console.log(Number.parseInt('e30', 10));
 
-console.log(Number.parseInt('  2.5rem  '));
-console.log(Number.parseFloat('  2.5rem'));
-// console.log(parseFloat('54.01')); don't do this - lacks a clear namespace
+// console.log(Number.parseInt('  2.5rem  '));
+// console.log(Number.parseFloat('  2.5rem'));
+// // console.log(parseFloat('54.01')); don't do this - lacks a clear namespace
 
-console.log('--- isNaN ---'); // only checking for NaN, specifically
-console.log(Number.isNaN(20));
-console.log(Number.isNaN('123'));
-console.log(Number.isNaN(+'20x'));
-console.log(Number.isNaN('23/0'));
+// console.log('--- isNaN ---'); // only checking for NaN, specifically
+// console.log(Number.isNaN(20));
+// console.log(Number.isNaN('123'));
+// console.log(Number.isNaN(+'20x'));
+// console.log(Number.isNaN('23/0'));
 
-console.log('--- isFinite ---'); // prefer this one, or Number.isInteger when checking for numbers
-console.log(Number.isFinite(20));
-console.log(Number.isFinite('123'));
-console.log(Number.isFinite(+'20x'));
-console.log(Number.isFinite('23/0'));
+// console.log('--- isFinite ---'); // prefer this one, or Number.isInteger when checking for numbers
+// console.log(Number.isFinite(20));
+// console.log(Number.isFinite('123'));
+// console.log(Number.isFinite(+'20x'));
+// console.log(Number.isFinite('23/0'));
 
-console.log('--- isInteger ---');
-console.log(Number.isInteger(20));
-console.log(Number.isInteger('123'));
-console.log(Number.isInteger(+'20x'));
-console.log(Number.isInteger('23/0'));
+// console.log('--- isInteger ---');
+// console.log(Number.isInteger(20));
+// console.log(Number.isInteger('123'));
+// console.log(Number.isInteger(+'20x'));
+// console.log(Number.isInteger('23/0'));
+
+// 167
+console.log(Math.sqrt(25));
+console.log(25 ** (1 / 2));
+console.log(8 ** (1 / 3));
+console.log(Math.max(3, 3453456, '234', 435, 6, 7, 8));
+console.log(Math.min(3, 3453456, 3, 435, 6, 7, 8));
+console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+console.log(Math.floor(Math.random() * 6) + 1);
+
+const randomInt = (min, max) =>
+  Math.trunc(Math.random() * (max - min) + 1) + min;
+console.log(randomInt(10, 20));
+console.log(randomInt(-20, -10));
+
+// rounding integers
+console.log(Math.trunc(23.3));
+
+console.log(Math.round(23.3));
+console.log(Math.round(23.5));
+
+console.log(Math.ceil(23.3));
+console.log(Math.ceil(23.5));
+
+console.log(Math.floor(23.5));
+console.log(Math.floor(23.3));
+
+console.log(Math.floor(-23.5));
+console.log(Math.floor(-23.3));
+console.log(Math.trunc(-23.5));
+console.log(Math.trunc(-23.3));
+
+// rounding decimals
+console.log((2.7).toFixed(0)); //always returns a string, not a number!
+console.log((2.7).toFixed(3));
+console.log(+(2.357).toFixed(3));
