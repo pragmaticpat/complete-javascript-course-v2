@@ -472,18 +472,36 @@ GOOD LUCK 😀
 // const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 // console.log(account);
 
-// EQUALITY
-console.log(movements.includes(-130));
+// // EQUALITY
+// console.log(movements.includes(-130));
 
-// SOME: CONDITION
-const anyDeposits = movements.some(mov => mov > 1500);
-console.log(anyDeposits);
+// // SOME: CONDITION
+// const anyDeposits = movements.some(mov => mov > 1500);
+// console.log(anyDeposits);
 
-// EVERY
-console.log(account4.movements.every(mov => mov > 0));
+// // EVERY
+// console.log(account4.movements.every(mov => mov > 0));
 
-// Separate callback
-const deposit = mov => mov > 0;
-console.log('passing every...', account4.movements.every(deposit));
-console.log('passing some...', account4.movements.some(deposit));
-console.log('passing filter...', account4.movements.filter(deposit));
+// // Separate callback
+// const deposit = mov => mov > 0;
+// console.log('passing every...', account4.movements.every(deposit));
+// console.log('passing some...', account4.movements.some(deposit));
+// console.log('passing filter...', account4.movements.filter(deposit));
+
+// 159
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat()); // only goes one level deep
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2));
+
+const overallBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov);
+console.log(overallBalance);
+
+const overallBalance2 = accounts
+  .flatMap(acc => acc.movements) //flatmap only goes one level deep!
+  .reduce((acc, mov) => acc + mov);
+console.log(overallBalance2);
