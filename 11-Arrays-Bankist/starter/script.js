@@ -606,33 +606,43 @@ GOOD LUCK 😀
 */
 
 const dogs = [
-  { weight: 22, curFood: 750, owners: ['Alice', 'Bob'] },
-  { weight: 8, curFood: 133, owners: ['Matilda'] },
-  { weight: 13, curFood: 200, owners: ['Sarah', 'John'] },
-  { weight: 32, curFood: 300, owners: ['Michael'] },
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
 ];
 
 // 1
-dogs.map(d => {
+dogs.forEach(d => {
   d.recommendedFood = Math.floor(d.weight ** 0.75 * 28);
 });
 
 const isEatingOkayAmount = dog =>
-  dog.curFood <= dog.recommendedFood * 1.1 &&
-  dog.curFood >= dog.recommendedFood * 0.9;
+  dog.curFood < dog.recommendedFood * 1.1 &&
+  dog.curFood > dog.recommendedFood * 0.9;
 
 // 2, 3, 4, 7
-const ownersEatTooMuch = [];
-const ownersEatTooLittle = [];
-const ownersEatingOkayAmount = [];
+const ownersEatTooMuch = dogs
+  .filter(d => d.curFood > d.recommendedFood)
+  .flatMap(d => d.owners);
+console.log('too much', ownersEatTooMuch);
 
-dogs.forEach(d => {
-  if (d.curFood < d.recommendedFood * 0.9)
-    ownersEatTooLittle.push(d.owners.flat());
-  if (d.curFood > d.recommendedFood * 1.1)
-    ownersEatTooMuch.push(d.owners.flat());
-  if (isEatingOkayAmount(d)) ownersEatingOkayAmount.push(d.owners.flat());
-});
+const ownersEatTooLittle = dogs
+  .filter(d => d.curFood < d.recommendedFood)
+  .flatMap(d => d.owners);
+console.log('too little', ownersEatTooLittle);
+
+console.log(`${ownersEatTooMuch.flat().join(' and ')}'s dogs eat too much!`);
+console.log(
+  `${ownersEatTooLittle.flat().join(' and ')}'s dogs eat too little!`
+);
+
+const ownersEatingOkayAmount = dogs.filter(isEatingOkayAmount);
+console.log('okay amount', ownersEatingOkayAmount);
+
+console.log(
+  `${ownersEatingOkayAmount.flat().join(', ')}'s dogs eat an okay amount!`
+);
 
 // 5
 console.log(
@@ -646,11 +656,6 @@ console.log(
   `It is a ${dogs.some(
     isEatingOkayAmount
   )} statement that there is at least one dog eating within the recommended range for daily food intake`
-);
-console.log(`${ownersEatTooMuch.flat().join(', ')}'s dogs eat too much!`);
-console.log(`${ownersEatTooLittle.flat().join(', ')}'s dogs eat too little!`);
-console.log(
-  `${ownersEatingOkayAmount.flat().join(', ')}'s dogs eat an okay amount!`
 );
 
 // 8
