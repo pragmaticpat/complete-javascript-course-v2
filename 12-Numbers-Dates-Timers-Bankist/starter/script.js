@@ -326,24 +326,63 @@ btnSort.addEventListener('click', function (e) {
 // console.log(+(2.357).toFixed(3));
 
 // 168
-console.log(5 % 2);
-console.log(5 / 2);
+// console.log(5 % 2);
+// console.log(5 / 2);
 
-// I'm already familiar with mod operator
+// // I'm already familiar with mod operator
 
-console.log(6 % 2);
-console.log(7 % 2);
+// console.log(6 % 2);
+// console.log(7 % 2);
 
-const isEven = n => n % 2 === 0;
+// const isEven = n => n % 2 === 0;
 
-console.log(isEven(7));
-console.log(isEven(9));
-console.log(isEven(11));
-console.log(isEven(12));
+// console.log(isEven(7));
+// console.log(isEven(9));
+// console.log(isEven(11));
+// console.log(isEven(12));
 
-labelBalance.addEventListener('click', () => {
-  document.querySelectorAll('.movements__row').forEach(function (row, i) {
-    if (i % 2 === 0) row.style.backgroundColor = 'lightgrey';
-    if (i % 3 === 0) row.style.backgroundColor = 'blue';
-  });
-});
+// labelBalance.addEventListener('click', () => {
+//   document.querySelectorAll('.movements__row').forEach(function (row, i) {
+//     if (i % 2 === 0) row.style.backgroundColor = 'lightgrey';
+//     if (i % 3 === 0) row.style.backgroundColor = 'blue';
+//   });
+// });
+
+// 169 - Bigint! 💪
+
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(2 ** 53 + 0); // start losing precision!!!!
+console.log(2 ** 53 + 1);
+console.log(2 ** 53 + 2);
+console.log(2 ** 53 + 3);
+console.log(2 ** 53 + 4);
+
+console.log(1982734091273490812734091278340983709823745n); // "n" suffix transforms the number into a bigint so it can be displayed accurately
+
+console.log(BigInt(1982734091273490812734091278340983709823745)); //yikes! still failed to transform and be consistent!
+
+// Operations
+console.log(10000n + 10000n);
+
+console.log(9007199254740991n + 1n);
+console.log(9007199254740991n + 2n);
+console.log(9007199254740991n + 3n);
+console.log(9007199254740991n + 4n);
+// console.log(Math.sqrt(16n)); won't work!
+
+const huge = 982736498237649827364n;
+const num = 23;
+console.log(huge * BigInt(23));
+
+// Exceptions
+console.log(20n > 15);
+console.log(20n === 20);
+console.log(typeof 20n);
+console.log(20n == '20');
+
+console.log(huge + ' is really big!!!!');
+
+console.log('--- divisions with bigint ---');
+console.log(10n / 3n);
+console.log(10 / 3);
