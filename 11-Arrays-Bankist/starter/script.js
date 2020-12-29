@@ -74,9 +74,14 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach((mov, i) => {
+
+  const movementsForDisplay = sort
+    ? movements.slice().sort((a, b) => a - b)
+    : movements;
+
+  movementsForDisplay.forEach((mov, i) => {
     const type = mov < 0 ? 'withdrawal' : 'deposit';
     const html = `
     <div class="movements__row">
@@ -226,6 +231,12 @@ btnClose.addEventListener('click', function (e) {
 
     console.log(accounts);
   }
+});
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, (sorted = !sorted));
 });
 
 // console.log('--- deposits ---');
@@ -489,19 +500,39 @@ GOOD LUCK 😀
 // console.log('passing filter...', account4.movements.filter(deposit));
 
 // 159
-const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
-console.log(arr.flat()); // only goes one level deep
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat()); // only goes one level deep
 
-const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
-console.log(arrDeep.flat(2));
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+// console.log(arrDeep.flat(2));
 
-const overallBalance = accounts
-  .map(acc => acc.movements)
-  .flat()
-  .reduce((acc, mov) => acc + mov);
-console.log(overallBalance);
+// const overallBalance = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, mov) => acc + mov);
+// console.log(overallBalance);
 
-const overallBalance2 = accounts
-  .flatMap(acc => acc.movements) //flatmap only goes one level deep!
-  .reduce((acc, mov) => acc + mov);
-console.log(overallBalance2);
+// const overallBalance2 = accounts
+//   .flatMap(acc => acc.movements) //flatmap only goes one level deep!
+//   .reduce((acc, mov) => acc + mov);
+// console.log(overallBalance2);
+
+// 160
+
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort());
+
+// console.log(movements);
+// console.log(movements.sort());
+
+// return < 0, then a before b (keep order)
+// return > 0, then b before a (switch order)
+
+// ascending
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+// descending
+movements.sort((a, b) => b - a);
+
+console.log(movements);
