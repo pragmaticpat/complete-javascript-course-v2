@@ -519,20 +519,56 @@ GOOD LUCK 😀
 
 // 160
 
-const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
-console.log(owners.sort());
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+// console.log(owners.sort());
+
+// // console.log(movements);
+// // console.log(movements.sort());
+
+// // return < 0, then a before b (keep order)
+// // return > 0, then b before a (switch order)
+
+// // ascending
+// movements.sort((a, b) => a - b);
+// console.log(movements);
+
+// // descending
+// movements.sort((a, b) => b - a);
 
 // console.log(movements);
-// console.log(movements.sort());
 
-// return < 0, then a before b (keep order)
-// return > 0, then b before a (switch order)
+// 161
+const arr = [1, 2, 3, 4, 5, 6, 7];
+console.log(arr);
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
 
-// ascending
-movements.sort((a, b) => a - b);
-console.log(movements);
+const x = new Array(7);
+console.log(x);
+console.log(x.map(() => 5));
+// console.log(x.fill(1));
+console.log(x.fill(1, 3, 5));
 
-// descending
-movements.sort((a, b) => b - a);
+arr.fill(23, 2, 6);
+console.log(arr);
 
-console.log(movements);
+// Array.from
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+// 100 random dice rolls
+const rolls = Array.from({ length: 100 }, () =>
+  Math.floor(Math.random() * 6 + 1)
+);
+console.log(rolls);
+
+labelBalance.addEventListener('click', () => {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+
+  console.log(movementsUI);
+});
