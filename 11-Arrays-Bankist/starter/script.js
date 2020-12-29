@@ -134,11 +134,9 @@ accounts.forEach(account => {
 });
 
 const userName = createUserName('Steven Thomas Williams');
-// console.log(userName);
 
-// console.log(accounts);
+// EVENT HANDLERS
 
-// Event Handler
 let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
@@ -191,6 +189,32 @@ btnTransfer.addEventListener('click', function (e) {
     receiverAccount.movements.push(amount);
 
     updateUI(currentAccount);
+  }
+});
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  console.log(inputCloseUsername.value, Number(inputClosePin.value));
+  if (
+    inputCloseUsername?.value === currentAccount.userName &&
+    Number(inputClosePin?.value) === currentAccount.pin
+  ) {
+    console.log(accounts);
+    const index = accounts.findIndex(
+      acc => acc.userName === currentAccount.userName
+    );
+
+    // remove the account from the accounts list
+    accounts.splice(index, 1);
+
+    // hide the ui
+    containerApp.style.opacity = 0;
+
+    // clear fields
+    inputClosePin.value = inputCloseUsername.value = '';
+
+    console.log(accounts);
   }
 });
 
