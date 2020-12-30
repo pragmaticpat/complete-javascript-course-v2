@@ -5,7 +5,7 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const nav = document.querySelector('.nav');
-
+const section1 = document.querySelector('#section--1');
 ///////////////////////////////////////
 // Modal window
 
@@ -96,6 +96,14 @@ const handleHover = function (e) {
 // passing "argument" into a handler
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
+
+// Sticky Navigation
+const initialCoords = section1.getBoundingClientRect();
+console.log(initialCoords);
+window.addEventListener('scroll', function (e) {
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
 
 // Scrolling
 
