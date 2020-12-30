@@ -86,7 +86,6 @@ const formatMovementDate = function (date, locale = 'en-US') {
     Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
 
   const daysPassed = Math.round(calcDaysPassed(new Date(), date));
-  console.log(daysPassed);
 
   if (daysPassed === 0) return 'Today';
   if (daysPassed === 1) return 'Yesterday';
@@ -286,13 +285,15 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(+inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
-    // Add the transfer date
-    currentAccount.movementsDates.push(new Date());
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
+      // Add the transfer date
+      currentAccount.movementsDates.push(new Date());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+    }, 2500);
   }
   inputLoanAmount.value = '';
 });
@@ -521,16 +522,47 @@ btnSort.addEventListener('click', function (e) {
 // 173
 // was all done inline in the application above...
 
-const num = 387568745369.234;
+// const num = 387568745369.234;
 
-const options = {
-  style: 'currency',
-  unit: 'celsius',
-  currency: 'EUR',
-  // useGrouping: false,
-};
+// const options = {
+//   style: 'currency',
+//   unit: 'celsius',
+//   currency: 'EUR',
+//   // useGrouping: false,
+// };
 
-console.log('US:       ', new Intl.NumberFormat('en-US', options).format(num));
-console.log('Germany:  ', new Intl.NumberFormat('de-DE', options).format(num));
-console.log('Portugal: ', new Intl.NumberFormat('pt-PT', options).format(num));
-console.log('Syria:    ', new Intl.NumberFormat('ar-SY', options).format(num));
+// console.log('US:       ', new Intl.NumberFormat('en-US', options).format(num));
+// console.log('Germany:  ', new Intl.NumberFormat('de-DE', options).format(num));
+// console.log('Portugal: ', new Intl.NumberFormat('pt-PT', options).format(num));
+// console.log('Syria:    ', new Intl.NumberFormat('ar-SY', options).format(num));
+
+// 175 TIMERS BABY! TIMERS!
+// settimeout
+// const ingredients = ['olives', 'spinach'];
+// const pizzaTimer = setTimeout(
+//   (ing1, ing2) => console.log(`here is your ${ing1} and ${ing2} 🍕!!`),
+//   2000,
+//   ...ingredients
+// );
+// console.log('waiting....');
+
+// if (ingredients.includes('spinach')) {
+//   clearTimeout(pizzaTimer);
+//   console.log('not waiting any more!');
+// }
+
+// setinterval;
+// setInterval(function () {
+//   // console.clear();
+//   const now = new Date();
+//   console.log(
+//     new Intl.DateTimeFormat(currentAccount.locale, {
+//       year: 'numeric',
+//       month: 'numeric',
+//       day: 'numeric',
+//       hour: 'numeric',
+//       minute: 'numeric',
+//       second: 'numeric',
+//     }).format(now)
+//   );
+// }, 1000);
