@@ -155,3 +155,18 @@ btnScrollTo.addEventListener('click', function (e) {
 
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+// this technique allows you to add as many event listeners as you wish, as well as remove one or many of them
+
+const alertH1 = function (e) {
+  alert('addEventListener: Great! You are reading the heading :D');
+
+  h1.removeEventListener('mouseenter', alertH1);
+};
+const h1 = document.querySelector('h1');
+h1.addEventListener('mouseenter', alertH1);
+
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+
+// old school
+// h1.onmouseenter = () => alert('addEventListener: Via onevent!');
