@@ -31,3 +31,40 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+///////////////////////////////////////
+// Lectures
+console.log(document.documentElement);
+console.log(document.head);
+console.log(document.body);
+
+const header = document.querySelector('.header');
+const allSections = document.querySelectorAll('.section');
+console.log(allSections);
+
+document.getElementById('section--1');
+const allButtons = document.getElementsByTagName('button'); //htmlcollection, NOT a nodelist - live collection that updates based on updates
+console.log(allButtons);
+
+console.log(document.getElementsByClassName('btn')); // also a live htmlcollection
+
+// creating and inserting elements
+// .insertAdjacentHTML
+
+const message = document.createElement('div');
+message.classList.add('cookie-message');
+message.textContent =
+  'We use cookies for improved functionality and analytics.';
+message.innerHTML =
+  'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+
+// header.prepend(message);
+header.append(message); //message is a live element in the DOM now, cannot exist at two locations simultaneously
+// header.append(message.cloneNode(true));
+header.before(message);
+header.after(message);
+
+// delete the element when clicking the button
+document
+  .querySelector('.btn--close-cookie')
+  .addEventListener('click', () => message.remove());
