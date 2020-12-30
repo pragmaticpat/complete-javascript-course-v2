@@ -195,18 +195,42 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogoutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
+    labelTimer.textContent = `${min}:${sec}`;
+
+    if (time === 0) {
+      clearInterval(timer);
+      containerApp.style.opacity = 0;
+      labelWelcome.textContent = 'Log in to get started';
+    }
+    time--;
+  };
+  let time = 120;
+
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer;
+};
+
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, timer;
 
 // Fake always logged in
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
   e.preventDefault();
+
+  if (timer) clearInterval(timer);
+  timer = startLogoutTimer();
 
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
@@ -240,14 +264,6 @@ btnLogin.addEventListener('click', function (e) {
       options
     ).format(now);
 
-    // const now = new Date();
-    // const day = `${now.getDate()}`.padStart(2, 0);
-    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    // const year = now.getFullYear();
-    // const hour = `${now.getHours()}`.padStart(2, 0);
-    // const minutes = `${now.getMinutes()}`.padStart(2, 0);
-    // labelDate.textContent = `${month}/${day}/${year} at ${hour}:${minutes}`;
-
     // Update UI
     updateUI(currentAccount);
   }
@@ -276,6 +292,10 @@ btnTransfer.addEventListener('click', function (e) {
     receiverAcc.movementsDates.push(new Date());
     // Update UI
     updateUI(currentAccount);
+
+    // reset the timer
+    clearInterval(timer);
+    timer = startLogoutTimer();
   }
 });
 
@@ -293,6 +313,9 @@ btnLoan.addEventListener('click', function (e) {
 
       // Update UI
       updateUI(currentAccount);
+      // reset the timer
+      clearInterval(timer);
+      timer = startLogoutTimer();
     }, 2500);
   }
   inputLoanAmount.value = '';
