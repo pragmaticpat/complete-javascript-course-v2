@@ -34,90 +34,124 @@ document.addEventListener('keydown', function (e) {
 
 ///////////////////////////////////////
 // Lectures
-console.log(document.documentElement);
-console.log(document.head);
-console.log(document.body);
+// console.log(document.documentElement);
+// console.log(document.head);
+// console.log(document.body);
 
-const header = document.querySelector('.header');
-const allSections = document.querySelectorAll('.section');
-console.log(allSections);
+// const header = document.querySelector('.header');
+// const allSections = document.querySelectorAll('.section');
+// console.log(allSections);
 
-document.getElementById('section--1');
-const allButtons = document.getElementsByTagName('button'); //htmlcollection, NOT a nodelist - live collection that updates based on updates
-console.log(allButtons);
+// document.getElementById('section--1');
+// const allButtons = document.getElementsByTagName('button'); //htmlcollection, NOT a nodelist - live collection that updates based on updates
+// console.log(allButtons);
 
-console.log(document.getElementsByClassName('btn')); // also a live htmlcollection
+// console.log(document.getElementsByClassName('btn')); // also a live htmlcollection
 
-// creating and inserting elements
-// .insertAdjacentHTML
+// // creating and inserting elements
+// // .insertAdjacentHTML
 
-const message = document.createElement('div');
-message.classList.add('cookie-message');
-message.textContent =
-  'We use cookies for improved functionality and analytics.';
-message.innerHTML =
-  'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+// const message = document.createElement('div');
+// message.classList.add('cookie-message');
+// message.textContent =
+//   'We use cookies for improved functionality and analytics.';
+// message.innerHTML =
+//   'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
 
-// header.prepend(message);
-header.append(message); //message is a live element in the DOM now, cannot exist at two locations simultaneously
-// header.append(message.cloneNode(true));
-header.before(message);
-header.after(message);
+// // header.prepend(message);
+// header.append(message); //message is a live element in the DOM now, cannot exist at two locations simultaneously
+// // header.append(message.cloneNode(true));
+// header.before(message);
+// header.after(message);
 
-// delete the element when clicking the button
-document
-  .querySelector('.btn--close-cookie')
-  .addEventListener('click', () => message.remove());
+// // delete the element when clicking the button
+// document
+//   .querySelector('.btn--close-cookie')
+//   .addEventListener('click', () => message.remove());
 
-// Styles
+// // Styles
 
-message.style.backgroundColor = '#37383d';
-message.style.width = '120%';
+// message.style.backgroundColor = '#37383d';
+// message.style.width = '120%';
 
-console.log(message.style.color);
-console.log(message.style.backgroundColor);
+// console.log(message.style.color);
+// console.log(message.style.backgroundColor);
 
-console.log(getComputedStyle(message).color);
-console.log(getComputedStyle(message).height);
+// console.log(getComputedStyle(message).color);
+// console.log(getComputedStyle(message).height);
 
-message.style.height =
-  Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+// message.style.height =
+//   Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
 
-document.documentElement.style.setProperty('--color-primary', 'orangered');
+// document.documentElement.style.setProperty('--color-primary', 'orangered');
 
-// Attributes
-const logo = document.querySelector('.nav__logo');
-console.log(logo.alt);
-console.log(logo.src);
-console.log(logo.className);
+// // Attributes
+// const logo = document.querySelector('.nav__logo');
+// console.log(logo.alt);
+// console.log(logo.src);
+// console.log(logo.className);
 
-logo.alt = 'beautiful minimalist logo';
-console.log(logo.alt);
+// logo.alt = 'beautiful minimalist logo';
+// console.log(logo.alt);
 
-// non-standard
-console.log(logo.designer); //doesn't work
-console.log(logo.getAttribute('designer')); //works!
-logo.setAttribute('company', 'Bankist');
+// // non-standard
+// console.log(logo.designer); //doesn't work
+// console.log(logo.getAttribute('designer')); //works!
+// logo.setAttribute('company', 'Bankist');
 
-console.log(logo.src);
-console.log(logo.getAttribute('src'));
+// console.log(logo.src);
+// console.log(logo.getAttribute('src'));
 
-const link = document.querySelector('.twitter-link');
-console.log(link.href);
-console.log(link.getAttribute('href'));
+// const link = document.querySelector('.twitter-link');
+// console.log(link.href);
+// console.log(link.getAttribute('href'));
 
-const navLink = document.querySelector('.nav__link--btn');
-console.log(navLink.href);
-console.log(navLink.getAttribute('href'));
+// const navLink = document.querySelector('.nav__link--btn');
+// console.log(navLink.href);
+// console.log(navLink.getAttribute('href'));
 
-// Data attributes
-console.log(logo.dataset.versionNumber);
+// // Data attributes
+// console.log(logo.dataset.versionNumber);
 
-// Classes
-logo.classList.add('c', 'j');
-logo.classList.remove('c');
-logo.classList.toggle('c');
-logo.classList.contains('c'); //NOT includes!
+// // Classes
+// logo.classList.add('c', 'j');
+// logo.classList.remove('c');
+// logo.classList.toggle('c');
+// logo.classList.contains('c'); //NOT includes!
 
-// Don't use! Only allows one, and verrides all existing classes
-logo.className = 'jonas';
+// // Don't use! Only allows one, and verrides all existing classes
+// logo.className = 'jonas';
+
+// Smooth scrolling!
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  // console.log(s1coords);
+
+  // console.log(e.target.getBoundingClientRect());
+
+  // console.log('Current scroll (x/y)', window.pageXOffset, window.pageYOffset);
+
+  // console.log(
+  //   'height and width of viewport',
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // );
+
+  // scrolling
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
+
+  // Old School way of doing things
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
