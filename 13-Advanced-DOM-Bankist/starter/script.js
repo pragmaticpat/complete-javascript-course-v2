@@ -152,7 +152,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 // lazy loading images!
@@ -180,6 +180,48 @@ const imgObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach(target => imgObserver.observe(target));
+
+// Slider
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+const slider = document.querySelector('.slider');
+const slides = document.querySelectorAll('.slide');
+
+let currentSlide = 0;
+const maxSlides = slides.length;
+
+// next slide
+
+const goToSlide = function (slide) {
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${(i - currentSlide) * 100}%)`)
+  );
+};
+
+goToSlide(0);
+
+const nextSlide = function () {
+  if (currentSlide + 1 === maxSlides) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
+
+  goToSlide(currentSlide);
+};
+
+const prevSlide = function () {
+  if (currentSlide === 0) {
+    currentSlide = maxSlides - 1;
+  } else {
+    currentSlide--;
+  }
+
+  goToSlide(currentSlide);
+};
+
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', prevSlide);
 
 // Scrolling
 
