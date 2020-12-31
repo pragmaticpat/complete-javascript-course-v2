@@ -155,6 +155,32 @@ allSections.forEach(function (section) {
   section.classList.add('section--hidden');
 });
 
+// lazy loading images!
+const imgTargets = document.querySelectorAll('img[data-src');
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+
+  if (!entry.isIntersecting) return;
+
+  // replace the placeholder image with the data-src image
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+
+  observer.unobserve(entry.target);
+};
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0.15,
+});
+
+imgTargets.forEach(target => imgObserver.observe(target));
+
 // Scrolling
 
 // const btnScrollTo = document.querySelector('.btn--scroll-to');
