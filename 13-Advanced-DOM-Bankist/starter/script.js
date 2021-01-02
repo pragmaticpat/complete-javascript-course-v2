@@ -464,4 +464,20 @@ slider();
 //   if (el !== h1) el.style.transform = 'scale(0.5)';
 // });
 
-// 192
+// 192 - was done inline
+
+// 197
+
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTMl parsed and DOM tree build!', e);
+});
+
+window.addEventListener('load', function (e) {
+  console.log('Page full loaded!', e);
+});
+
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  console.log(e);
+  e.returnValue = ''; //for historical reasons
+});
