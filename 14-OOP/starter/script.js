@@ -85,20 +85,59 @@ DATA CAR 2: 'Mercedes' going at 95 km/h
 GOOD LUCK 😀
 */
 
-const Car = function (make, speed) {
-  this.make = make;
-  this.speed = speed;
-};
+// const Car = function (make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
 
-Car.prototype.accelerate = function () {
-  this.speed += 10;
-  console.log(`'${this.make}' is going ${this.speed} km/h`);
-};
+// Car.prototype.accelerate = function () {
+//   this.speed += 10;
+//   console.log(`'${this.make}' is going ${this.speed} km/h`);
+// };
 
-Car.prototype.brake = function () {
-  this.speed -= 5;
-  console.log(`'${this.make}' is going ${this.speed} km/h`);
-};
+// Car.prototype.brake = function () {
+//   this.speed -= 5;
+//   console.log(`'${this.make}' is going ${this.speed} km/h`);
+// };
 
-const m = new Car('Mercedes', 110);
-const b = new Car('BMW', 100);
+// const m = new Car('Mercedes', 110);
+// const b = new Car('BMW', 100);
+
+// ES6 Classes - syntactic sugar
+
+// class expression
+
+// const PersonCl = class{}
+
+// class declaration
+class PersonCl {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  // Methods will be added to the prototype property of this class
+  calcAge() {
+    // this is being added to the prototype, NOT the instance
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}!!!`);
+  }
+}
+
+const jessica = new PersonCl('Jessica', '1996');
+console.log(jessica);
+jessica.calcAge();
+console.log(jessica.__proto__ === PersonCl.prototype);
+
+// PersonCl.prototype.greet = function () {
+//   console.log(`Hey ${this.firstName}!!`);
+// };
+
+jessica.greet();
+
+// 1. Classes are NOT hoisted
+// 2. Classes are first-class citizens
+// 3. classes are executed in strict mode
