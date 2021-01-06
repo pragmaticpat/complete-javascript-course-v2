@@ -47,3 +47,25 @@ Person.prototype.species = 'Homo Sapiens';
 console.log(jonas.species, matilda.species);
 console.log(jonas.hasOwnProperty('firstName'));
 console.log(jonas.hasOwnProperty('species')); //NOPE! because it's in the Person prototype
+
+console.log(jonas.__proto__);
+console.log(jonas.__proto__.__proto__); // Object.prototype - top of the prototype chain
+console.log(jonas.__proto__.__proto__.__proto__);
+
+console.dir(Person.prototype.constructor);
+
+const arr = [3, 4, 5, 7, 3, 5, 4, 7, 6, 5, 7];
+console.log(arr.__proto__);
+console.log(arr.__proto__ === Array.prototype);
+
+console.log(arr.__proto__.__proto__);
+
+Array.prototype.unique = function () {
+  //this is generally not a good idea - this is like monkey-patching
+  return [...new Set(this)];
+};
+
+console.log(arr.unique());
+
+const h1 = document.querySelector('h1');
+console.dir(x => x + 1);
