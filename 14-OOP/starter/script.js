@@ -1,14 +1,14 @@
 'use strict';
 
-const Person = function (firstName, birthYear) {
-  this.firstName = firstName;
-  this.birthYear = birthYear;
+// const Person = function (firstName, birthYear) {
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
 
-  // never do this!! a function copy for each instance of Person
-  this.calcAge = function () {
-    console.log(2037 - birthYear);
-  };
-};
+//   // never do this!! a function copy for each instance of Person
+//   this.calcAge = function () {
+//     console.log(2037 - birthYear);
+//   };
+// };
 
 // Person.hey = function () {
 //   console.log('Hey there 👋');
@@ -190,26 +190,79 @@ GOOD LUCK 😀
 
 // console.log(jessica.age);
 
-const PersonProto = {
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  },
+// const PersonProto = {
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   },
 
-  init(firstName, birthYear) {
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-  },
-};
+//   init(firstName, birthYear) {
+//     this.firstName = firstName;
+//     this.birthYear = birthYear;
+//   },
+// };
 
-const steven = Object.create(PersonProto); // this is the least used method of prototypal inheritance
-console.log(steven);
-steven.name = 'Steven';
-steven.birthYear = 2002;
-steven.calcAge();
+// const steven = Object.create(PersonProto); // this is the least used method of prototypal inheritance
+// console.log(steven);
+// steven.name = 'Steven';
+// steven.birthYear = 2002;
+// steven.calcAge();
 
-console.log(steven.__proto__ === PersonProto);
+// console.log(steven.__proto__ === PersonProto);
 
-const sarah = Object.create(PersonProto);
-sarah.init('Sarah', 1979);
-console.log(sarah);
-sarah.calcAge();
+// const sarah = Object.create(PersonProto);
+// sarah.init('Sarah', 1979);
+// console.log(sarah);
+// sarah.calcAge();
+
+///////////////////////////////////////
+// Coding Challenge #2
+
+/* 
+1. Re-create challenge 1, but this time using an ES6 class;
+2. Add a getter called 'speedUS' which returns the current speed in mi/h (divide by 1.6);
+3. Add a setter called 'speedUS' which sets the current speed in mi/h (but converts it to km/h before storing the value, by multiplying the input by 1.6);
+4. Create a new car and experiment with the accelerate and brake methods, and with the getter and setter.
+
+DATA CAR 1: 'Ford' going at 120 km/h
+
+GOOD LUCK 😀
+*/
+
+class Car {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`'${this.make}' is going ${this.speed} km/h`);
+  }
+
+  break() {
+    this.speed -= 5;
+    console.log(`'${this.make}' is going ${this.speed} km/h`);
+  }
+
+  get speedUS() {
+    return this.speed / 1.6;
+  }
+
+  set speedUS(speed) {
+    this.speed = speed * 1.6;
+  }
+}
+
+const bmw = new Car('BMW', 100);
+const merc = new Car('Mercedes', 90);
+
+bmw.accelerate();
+bmw.break();
+bmw.speedUS = 75;
+console.log(bmw.speed);
+console.log(bmw.speedUS);
+merc.accelerate();
+merc.break();
+merc.speedUS = 90;
+console.log(merc.speed);
+console.log(merc.speedUS);
