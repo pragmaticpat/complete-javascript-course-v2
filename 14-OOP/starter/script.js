@@ -228,41 +228,77 @@ DATA CAR 1: 'Ford' going at 120 km/h
 GOOD LUCK 😀
 */
 
-class Car {
-  constructor(make, speed) {
-    this.make = make;
-    this.speed = speed;
-  }
+// class Car {
+//   constructor(make, speed) {
+//     this.make = make;
+//     this.speed = speed;
+//   }
 
-  accelerate() {
-    this.speed += 10;
-    console.log(`'${this.make}' is going ${this.speed} km/h`);
-  }
+//   accelerate() {
+//     this.speed += 10;
+//     console.log(`'${this.make}' is going ${this.speed} km/h`);
+//   }
 
-  break() {
-    this.speed -= 5;
-    console.log(`'${this.make}' is going ${this.speed} km/h`);
-  }
+//   break() {
+//     this.speed -= 5;
+//     console.log(`'${this.make}' is going ${this.speed} km/h`);
+//   }
 
-  get speedUS() {
-    return this.speed / 1.6;
-  }
+//   get speedUS() {
+//     return this.speed / 1.6;
+//   }
 
-  set speedUS(speed) {
-    this.speed = speed * 1.6;
-  }
-}
+//   set speedUS(speed) {
+//     this.speed = speed * 1.6;
+//   }
+// }
 
-const bmw = new Car('BMW', 100);
-const merc = new Car('Mercedes', 90);
+// const bmw = new Car('BMW', 100);
+// const merc = new Car('Mercedes', 90);
 
-bmw.accelerate();
-bmw.break();
-bmw.speedUS = 75;
-console.log(bmw.speed);
-console.log(bmw.speedUS);
-merc.accelerate();
-merc.break();
-merc.speedUS = 90;
-console.log(merc.speed);
-console.log(merc.speedUS);
+// bmw.accelerate();
+// bmw.break();
+// bmw.speedUS = 75;
+// console.log(bmw.speed);
+// console.log(bmw.speedUS);
+// merc.accelerate();
+// merc.break();
+// merc.speedUS = 90;
+// console.log(merc.speed);
+// console.log(merc.speedUS);
+
+// const Person = function (firstName, birthYear) {
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+// };
+
+// Person.prototype.calcAge = function () {
+//   console.log(2037 - this.birthYear);
+// };
+
+// const Student = function (firstName, birthYear, course) {
+//   Person.call(this, firstName, birthYear);
+//   this.course = course;
+// };
+
+// // Linking prototypes
+// Student.prototype = Object.create(Person.prototype);
+
+// Student.prototype.introduce = function () {
+//   console.log(`My name is ${this.firstName} and I study ${this.course}`);
+// };
+
+// const mike = new Student('Mike', 2020, 'Computer Science');
+// console.log(mike);
+// mike.introduce();
+// // mike.calcAge();
+// console.log(mike.hasOwnProperty('firstName'));
+// console.log(mike.__proto__);
+// console.log(mike.__proto__.__proto__);
+
+// console.log(mike instanceof Student);
+// console.log(mike instanceof Person);
+// console.log(mike instanceof Object);
+
+// Student.prototype.constructor = Student;
+// console.dir(Student.prototype.constructor);
