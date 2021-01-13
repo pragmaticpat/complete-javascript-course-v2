@@ -1,15 +1,21 @@
 'use strict';
 
-// const Person = function (firstName, birthYear) {
-//   this.firstName = firstName;
-//   this.birthYear = birthYear;
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
 
-//   // never do this!! a function copy for each instance of Person
-//   this.calcAge = function () {
-//     console.log(2037 - birthYear);
-//   };
-// };
+  // never do this!! a function copy for each instance of Person
+  this.calcAge = function () {
+    console.log(2037 - birthYear);
+  };
+};
 
+Person.hey = function () {
+  console.log('Hey there 👋');
+  console.log(this);
+};
+
+Person.hey();
 // const jonas = new Person('Jonas', '1991');
 // console.log(jonas);
 
@@ -107,7 +113,7 @@ GOOD LUCK 😀
 
 // class expression
 
-// const PersonCl = class{}
+// const PersonCl = class {};
 
 // class declaration
 class PersonCl {
@@ -138,6 +144,11 @@ class PersonCl {
   get fullName() {
     return this._fullName;
   }
+
+  static hey() {
+    console.log('Hey there static method! 👋');
+    console.log(this);
+  }
 }
 
 const jessica = new PersonCl('Jessica Davis', '1996');
@@ -158,23 +169,23 @@ jessica.greet();
 // 3. classes are executed in strict mode
 
 const walter = new PersonCl('Walter White', 1965);
+PersonCl.hey();
+// // Getters and Setters - accessor methods
+// const account = {
+//   owner: 'jonas',
+//   movements: [299, 499, 100, 300],
 
-// Getters and Setters - accessor methods
-const account = {
-  owner: 'jonas',
-  movements: [299, 499, 100, 300],
+//   get latest() {
+//     return this.movements.slice(-1).pop();
+//   },
 
-  get latest() {
-    return this.movements.slice(-1).pop();
-  },
+//   set latest(movement) {
+//     this.movements.push(movement);
+//   },
+// };
 
-  set latest(movement) {
-    this.movements.push(movement);
-  },
-};
+// console.log(account.latest);
+// account.latest = 600;
+// console.log(account.movements);
 
-console.log(account.latest);
-account.latest = 600;
-console.log(account.movements);
-
-console.log(jessica.age);
+// console.log(jessica.age);
