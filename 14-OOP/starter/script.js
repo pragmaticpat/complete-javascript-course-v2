@@ -10,12 +10,12 @@ const Person = function (firstName, birthYear) {
   };
 };
 
-Person.hey = function () {
-  console.log('Hey there 👋');
-  console.log(this);
-};
+// Person.hey = function () {
+//   console.log('Hey there 👋');
+//   console.log(this);
+// };
 
-Person.hey();
+// Person.hey();
 // const jonas = new Person('Jonas', '1991');
 // console.log(jonas);
 
@@ -116,60 +116,60 @@ GOOD LUCK 😀
 // const PersonCl = class {};
 
 // class declaration
-class PersonCl {
-  constructor(fullName, birthYear) {
-    this.fullName = fullName;
-    this.birthYear = birthYear;
-  }
+// class PersonCl {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
 
-  // Methods will be added to the prototype property of this class
-  calcAge() {
-    // this is being added to the prototype, NOT the instance
-    console.log(2037 - this.birthYear);
-  }
+//   // Methods will be added to the prototype property of this class
+//   calcAge() {
+//     // this is being added to the prototype, NOT the instance
+//     console.log(2037 - this.birthYear);
+//   }
 
-  greet() {
-    console.log(`Hey ${this.firstName}!!!`);
-  }
+//   greet() {
+//     console.log(`Hey ${this.firstName}!!!`);
+//   }
 
-  get age() {
-    return 2037 - this.birthYear;
-  }
+//   get age() {
+//     return 2037 - this.birthYear;
+//   }
 
-  set fullName(name) {
-    if (name.includes(' ')) this._fullName = name;
-    else alert(`${name} is not a full name!`);
-  }
+//   set fullName(name) {
+//     if (name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a full name!`);
+//   }
 
-  get fullName() {
-    return this._fullName;
-  }
+//   get fullName() {
+//     return this._fullName;
+//   }
 
-  static hey() {
-    console.log('Hey there static method! 👋');
-    console.log(this);
-  }
-}
+//   static hey() {
+//     console.log('Hey there static method! 👋');
+//     console.log(this);
+//   }
+// }
 
-const jessica = new PersonCl('Jessica Davis', '1996');
-console.log(jessica);
-jessica.calcAge();
-console.log(jessica.__proto__ === PersonCl.prototype);
+// const jessica = new PersonCl('Jessica Davis', '1996');
+// console.log(jessica);
+// jessica.calcAge();
+// console.log(jessica.__proto__ === PersonCl.prototype);
 
-jessica.fullName = 'Jessica Davis';
+// jessica.fullName = 'Jessica Davis';
 
-// PersonCl.prototype.greet = function () {
-//   console.log(`Hey ${this.firstName}!!`);
-// };
+// // PersonCl.prototype.greet = function () {
+// //   console.log(`Hey ${this.firstName}!!`);
+// // };
 
-jessica.greet();
+// jessica.greet();
 
 // 1. Classes are NOT hoisted
 // 2. Classes are first-class citizens
 // 3. classes are executed in strict mode
 
-const walter = new PersonCl('Walter White', 1965);
-PersonCl.hey();
+// const walter = new PersonCl('Walter White', 1965);
+// PersonCl.hey();
 // // Getters and Setters - accessor methods
 // const account = {
 //   owner: 'jonas',
@@ -189,3 +189,27 @@ PersonCl.hey();
 // console.log(account.movements);
 
 // console.log(jessica.age);
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto); // this is the least used method of prototypal inheritance
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 2002;
+steven.calcAge();
+
+console.log(steven.__proto__ === PersonProto);
+
+const sarah = Object.create(PersonProto);
+sarah.init('Sarah', 1979);
+console.log(sarah);
+sarah.calcAge();
