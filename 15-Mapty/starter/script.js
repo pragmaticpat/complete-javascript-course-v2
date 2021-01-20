@@ -75,6 +75,11 @@ class App {
 
   constructor() {
     this._getPosition();
+
+    // get data from localstorage
+    this._getLocalStorage();
+
+    // attach eventhandlers
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
@@ -93,8 +98,6 @@ class App {
   _loadMap(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
-    console.log(latitude, longitude);
-    console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
 
     const coords = [latitude, longitude];
     this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
@@ -106,6 +109,10 @@ class App {
 
     // Handling clicks on map
     this.#map.on('click', this._showForm.bind(this));
+
+    this.#workouts.forEach(work => {
+      this._renderWorkoutMarker(work);
+    });
   }
 
   _showForm(mapE) {
@@ -114,7 +121,7 @@ class App {
     inputDistance.focus();
   }
 
-  _hideForm(mapE) {
+  _hideForm() {
     form.style.display = 'none';
     form.classList.add('hidden');
     inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value =
@@ -177,6 +184,8 @@ class App {
     // hide the form
 
     this._hideForm();
+
+    this._setLocalStorage();
 
     // clear input fields
     inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value =
@@ -261,10 +270,29 @@ class App {
       animate: true,
       pan: { duration: 1 },
     });
-    console.log(workout);
 
     // using public interface
-    workout.click();
+    // workout.click(); - removed this since prototype chain breaks after hydrating from local storage
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+
+    if (!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach(work => {
+      this._renderWorkout(work);
+    });
+  }
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
   }
 }
 
