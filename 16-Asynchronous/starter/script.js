@@ -112,7 +112,15 @@ console.log(request);
 const getCountryData = function (country) {
   fetch(`https://restcountries.eu/rest/v2/name/${country}`)
     .then(response => response.json())
-    .then(data => renderCountry(data[0]));
+    .then(data => {
+      renderCountry(data[0]);
+
+      const neighbour = data[0].borders[0];
+      if (!neighbour) return;
+      return fetch(`https://restcountries.eu/rest/v2/alpha/${neighbour}`);
+    })
+    .then(nResponse => nResponse.json())
+    .then(data => renderCountry(data, 'neighbour'));
 };
 
-getCountryData('ireland');
+getCountryData('russia');
