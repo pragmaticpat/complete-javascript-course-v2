@@ -8,23 +8,23 @@ const renderError = function (msg) {
   // countriesContainer.style.opacity = 1;
 };
 
-function renderCountry(data, className = '') {
-  const html = `<article class="country ${className}">
-  <img class="country__img" src="${data.flag}" />
-  <div class="country__data">
-    <h3 class="country__name">${data.name}</h3>
-    <h4 class="country__region">${data.region}</h4>
-    <p class="country__row"><span>👫</span>${(
-      +data.population / 1000000
-    ).toFixed(1)} million</p>
-    <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
-    <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
-  </div>
-</article>`;
+// function renderCountry(data, className = '') {
+//   const html = `<article class="country ${className}">
+//   <img class="country__img" src="${data.flag}" />
+//   <div class="country__data">
+//     <h3 class="country__name">${data.name}</h3>
+//     <h4 class="country__region">${data.region}</h4>
+//     <p class="country__row"><span>👫</span>${(
+//       +data.population / 1000000
+//     ).toFixed(1)} million</p>
+//     <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+//     <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
+//   </div>
+// </article>`;
 
-  countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
-}
+//   countriesContainer.insertAdjacentHTML('beforeend', html);
+//   countriesContainer.style.opacity = 1;
+// }
 ///////////////////////////////////////
 
 // function getCountryData(country) {
@@ -151,42 +151,42 @@ function renderCountry(data, className = '') {
 //     });
 // };
 
-const getJSON = function (url, errorMessage = `Something went wrong`) {
-  return fetch(url).then(response => {
-    if (!response.ok) throw new Error(`${errorMessage} (${response.status})`);
+// const getJSON = function (url, errorMessage = `Something went wrong`) {
+//   return fetch(url).then(response => {
+//     if (!response.ok) throw new Error(`${errorMessage} (${response.status})`);
 
-    return response.json();
-  });
-};
+//     return response.json();
+//   });
+// };
 
-const getCountryData = function (country) {
-  // country 1
-  getJSON(
-    `https://restcountries.eu/rest/v2/name/${country}`,
-    `Country not found`
-  )
-    .then(data => {
-      renderCountry(data[0]);
-      const neighbour = data[0].borders[0];
+// const getCountryData = function (country) {
+//   // country 1
+//   getJSON(
+//     `https://restcountries.eu/rest/v2/name/${country}`,
+//     `Country not found`
+//   )
+//     .then(data => {
+//       renderCountry(data[0]);
+//       const neighbour = data[0].borders[0];
 
-      if (!neighbour) throw new Error(`No neighbor found!`);
+//       if (!neighbour) throw new Error(`No neighbor found!`);
 
-      // country 2
-      return getJSON(
-        `https://restcountries.eu/rest/v2/alpha/${neighbour}`,
-        `Neighboring country not found!`
-      );
-    })
-    .then(data => renderCountry(data, 'neighbour'))
-    .catch(err => {
-      console.error(`${err} 🔥🔥🔥`);
-      renderError(`Something went wrong! 🔥🔥 ${err}. Try again.`);
-    })
-    .finally(() => {
-      // good for spinners
-      countriesContainer.style.opacity = 1;
-    });
-};
+//       // country 2
+//       return getJSON(
+//         `https://restcountries.eu/rest/v2/alpha/${neighbour}`,
+//         `Neighboring country not found!`
+//       );
+//     })
+//     .then(data => renderCountry(data, 'neighbour'))
+//     .catch(err => {
+//       console.error(`${err} 🔥🔥🔥`);
+//       renderError(`Something went wrong! 🔥🔥 ${err}. Try again.`);
+//     })
+//     .finally(() => {
+//       // good for spinners
+//       countriesContainer.style.opacity = 1;
+//     });
+// };
 
 // btn.addEventListener('click', function () {
 //   getCountryData('australia');
@@ -264,11 +264,11 @@ GOOD LUCK 😀
 // lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 
 // // promisifying setTieout
-// const wait = function (seconds) {
-//   return new Promise(function (resolve) {
-//     setTimeout(resolve, seconds * 1000);
-//   });
-// };
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
 
 // wait(2)
 //   .then(() => {
@@ -288,33 +288,91 @@ GOOD LUCK 😀
 // Promise.reject(new Error('Problem! 🔥')).catch(x => console.error(x));
 // console.log('x');
 
-const getPosition = function () {
+// const getPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     // navigator.geolocation.getCurrentPosition(
+//     //   position => resolve(position),
+//     //   err => reject(new Error(`${err}`))
+//     // );
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
+
+// const whereAmI = function () {
+//   getPosition()
+//     .then(pos => {
+//       const { latitude: lat, longitude: lng } = pos.coords;
+
+//       return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+//     })
+//     .then(response => {
+//       if (response.status === 403)
+//         throw new Error(`💨 Exceeded API throttle ${response.status}`);
+//       return response.json();
+//     })
+//     .then(json => {
+//       console.log(`You are in ${json.city}, ${json.country}`);
+//       getCountryData(json.country);
+//     })
+//     .catch(err => console.error(`😭 Unable to get country data! (${err})`));
+// };
+
+// btn.addEventListener('click', whereAmI);
+
+///////////////////////////////////////
+// Coding Challenge #2
+
+/* 
+Build the image loading functionality that I just showed you on the screen.
+
+Tasks are not super-descriptive this time, so that you can figure out some stuff on your own. Pretend you're working on your own 😉
+
+PART 1
+✅ 1. Create a function 'createImage' which receives imgPath as an input. This function returns a promise which creates a new image (use document.createElement('img')) and sets the .src attribute to the provided image path. When the image is done loading, append it to the DOM element with the 'images' class, and resolve the promise. The fulfilled value should be the image element itself. In case there is an error loading the image ('error' event), reject the promise.
+
+If this part is too tricky for you, just watch the first part of the solution.
+
+PART 2
+✅ 2. Comsume the promise using .then and also add an error handler;
+✅ 3. After the image has loaded, pause execution for 2 seconds using the wait function we created earlier;
+✅ 4. After the 2 seconds have passed, hide the current image (set display to 'none'), and load a second image (HINT: Use the image element returned by the createImage promise to hide the current image. You will need a global variable for that 😉);
+✅ 5. After the second image has loaded, pause execution for 2 seconds again;
+✅ 6. After the 2 seconds have passed, hide the current image.
+
+TEST DATA: Images in the img folder. Test the error handler by passing a wrong image path. Set the network speed to 'Fast 3G' in the dev tools Network tab, otherwise images load too fast.
+
+GOOD LUCK 😀
+*/
+
+let currentImage;
+const createImage = function (imgPath) {
   return new Promise(function (resolve, reject) {
-    // navigator.geolocation.getCurrentPosition(
-    //   position => resolve(position),
-    //   err => reject(new Error(`${err}`))
-    // );
-    navigator.geolocation.getCurrentPosition(resolve, reject);
+    currentImage = document.createElement('img');
+    currentImage.src = imgPath;
+    currentImage.addEventListener('load', function () {
+      const images = document.querySelector('.images');
+      console.log(images);
+      images.insertAdjacentElement('beforeend', this);
+      resolve(this);
+    });
+    currentImage.addEventListener('error', err =>
+      reject(new Error(`Unable to load image at path ${imgPath}, (${err})`))
+    );
   });
 };
 
-const whereAmI = function () {
-  getPosition()
-    .then(pos => {
-      const { latitude: lat, longitude: lng } = pos.coords;
-
-      return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
-    })
-    .then(response => {
-      if (response.status === 403)
-        throw new Error(`💨 Exceeded API throttle ${response.status}`);
-      return response.json();
-    })
-    .then(json => {
-      console.log(`You are in ${json.city}, ${json.country}`);
-      getCountryData(json.country);
-    })
-    .catch(err => console.error(`😭 Unable to get country data! (${err})`));
-};
-
-btn.addEventListener('click', whereAmI);
+createImage(`img/img-1.jpg`)
+  .then(() => console.log(`Image loaded!`))
+  .then(() => wait(2))
+  .then(() => {
+    currentImage.style.display = `none`;
+    return createImage(`img/img-2.jpg`);
+  })
+  .then(() => wait(2))
+  .then(() => {
+    currentImage.style.display = `none`;
+    return createImage(`img/img-3.jpg`);
+  })
+  .catch(err => {
+    console.error(`Something went wrong! ${err}`);
+  });
