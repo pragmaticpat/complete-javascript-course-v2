@@ -1,30 +1,30 @@
 'use strict';
 
-// const btn = document.querySelector('.btn-country');
-// const countriesContainer = document.querySelector('.countries');
+const btn = document.querySelector('.btn-country');
+const countriesContainer = document.querySelector('.countries');
 
-// const renderError = function (msg) {
-//   countriesContainer.insertAdjacentText('beforeend', msg);
-//   // countriesContainer.style.opacity = 1;
-// };
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+  // countriesContainer.style.opacity = 1;
+};
 
-// function renderCountry(data, className = '') {
-//   const html = `<article class="country ${className}">
-//   <img class="country__img" src="${data.flag}" />
-//   <div class="country__data">
-//     <h3 class="country__name">${data.name}</h3>
-//     <h4 class="country__region">${data.region}</h4>
-//     <p class="country__row"><span>👫</span>${(
-//       +data.population / 1000000
-//     ).toFixed(1)} million</p>
-//     <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
-//     <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
-//   </div>
-// </article>`;
+function renderCountry(data, className = '') {
+  const html = `<article class="country ${className}">
+  <img class="country__img" src="${data.flag}" />
+  <div class="country__data">
+    <h3 class="country__name">${data.name}</h3>
+    <h4 class="country__region">${data.region}</h4>
+    <p class="country__row"><span>👫</span>${(
+      +data.population / 1000000
+    ).toFixed(1)} million</p>
+    <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+    <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
+  </div>
+</article>`;
 
-//   countriesContainer.insertAdjacentHTML('beforeend', html);
-// countriesContainer.style.opacity = 1;
-// }
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
+}
 ///////////////////////////////////////
 
 // function getCountryData(country) {
@@ -151,43 +151,42 @@
 //     });
 // };
 
-// const getJSON = function (url, errorMessage = `Something went wrong`) {
-//   return fetch(url).then(response => {
-//     if (!response.ok) throw new Error(`${errorMessage} (${response.status})`);
+const getJSON = function (url, errorMessage = `Something went wrong`) {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(`${errorMessage} (${response.status})`);
 
-//     return response.json();
-//   });
-// };
+    return response.json();
+  });
+};
 
-// const getCountryData = function (country) {
-//   // country 1
-//   getJSON(
-//     `https://restcountries.eu/rest/v2/name/${country}`,
-//     `Country not found`
-//   )
-//     .then(data => {
-//       renderCountry(data[0]);
-//       const neighbour = data[0].borders[0];
+const getCountryData = function (country) {
+  // country 1
+  getJSON(
+    `https://restcountries.eu/rest/v2/name/${country}`,
+    `Country not found`
+  )
+    .then(data => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders[0];
 
-//       if (!neighbour) throw new Error(`No neighbor found!`);
+      if (!neighbour) throw new Error(`No neighbor found!`);
 
-//       // country 2
-//       return getJSON(
-//         `https://restcountries.eu/rest/v2/alpha/${neighbour}`,
-//         `Neighboring country not found!`
-//       );
-//     })
-//     .then(data => renderCountry(data, 'neighbour'))
-//     .catch(err => {
-//       console.error(`${err} 🔥🔥🔥`);
-//       renderError(`Something went wrong! 🔥🔥 ${err}. Try again.`);
-//     })
-//     .finally(() => {
-//       console.log(`finally something that is always going to happen`);
-//       // good for spinners
-//       countriesContainer.style.opacity = 1;
-//     });
-// };
+      // country 2
+      return getJSON(
+        `https://restcountries.eu/rest/v2/alpha/${neighbour}`,
+        `Neighboring country not found!`
+      );
+    })
+    .then(data => renderCountry(data, 'neighbour'))
+    .catch(err => {
+      console.error(`${err} 🔥🔥🔥`);
+      renderError(`Something went wrong! 🔥🔥 ${err}. Try again.`);
+    })
+    .finally(() => {
+      // good for spinners
+      countriesContainer.style.opacity = 1;
+    });
+};
 
 // btn.addEventListener('click', function () {
 //   getCountryData('australia');
@@ -253,38 +252,69 @@ GOOD LUCK 😀
 
 // console.log('test end'); //2
 
-const lotteryPromise = new Promise(function (resolve, reject) {
-  console.info(`Lottery draw is happening! 🔮`);
+// const lotteryPromise = new Promise(function (resolve, reject) {
+//   console.info(`Lottery draw is happening! 🔮`);
 
-  setTimeout(() => {
-    if (Math.random() > 0.5) resolve(`You win! 🎊 💰`);
-    else reject(new Error(`You lost your money 😭`));
-  }, 2000);
-});
+//   setTimeout(() => {
+//     if (Math.random() > 0.5) resolve(`You win! 🎊 💰`);
+//     else reject(new Error(`You lost your money 😭`));
+//   }, 2000);
+// });
 
-lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+// lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 
-// promisifying setTieout
-const wait = function (seconds) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, seconds * 1000);
+// // promisifying setTieout
+// const wait = function (seconds) {
+//   return new Promise(function (resolve) {
+//     setTimeout(resolve, seconds * 1000);
+//   });
+// };
+
+// wait(2)
+//   .then(() => {
+//     console.log(`I waited 2 seconds`);
+//     return wait(1);
+//   })
+//   .then(() => {
+//     console.log(`I waited 3 seconds`);
+//     return wait(1);
+//   })
+//   .then(() => {
+//     console.log(`I waited 4 seconds`);
+//     return wait(1);
+//   });
+
+// Promise.resolve('abc').then(x => console.log(x));
+// Promise.reject(new Error('Problem! 🔥')).catch(x => console.error(x));
+// console.log('x');
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => resolve(position),
+    //   err => reject(new Error(`${err}`))
+    // );
+    navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 };
 
-wait(2)
-  .then(() => {
-    console.log(`I waited 2 seconds`);
-    return wait(1);
-  })
-  .then(() => {
-    console.log(`I waited 3 seconds`);
-    return wait(1);
-  })
-  .then(() => {
-    console.log(`I waited 4 seconds`);
-    return wait(1);
-  });
+const whereAmI = function () {
+  getPosition()
+    .then(pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
 
-Promise.resolve('abc').then(x => console.log(x));
-Promise.reject(new Error('Problem! 🔥')).catch(x => console.error(x));
-console.log('x');
+      return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    })
+    .then(response => {
+      if (response.status === 403)
+        throw new Error(`💨 Exceeded API throttle ${response.status}`);
+      return response.json();
+    })
+    .then(json => {
+      console.log(`You are in ${json.city}, ${json.country}`);
+      getCountryData(json.country);
+    })
+    .catch(err => console.error(`😭 Unable to get country data! (${err})`));
+};
+
+btn.addEventListener('click', whereAmI);
