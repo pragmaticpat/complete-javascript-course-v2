@@ -286,5 +286,5 @@ wait(2)
   });
 
 Promise.resolve('abc').then(x => console.log(x));
-Promise.reject('abc').catch(x => console.error(x));
+Promise.reject(new Error('Problem! 🔥')).catch(x => console.error(x));
 console.log('x');
