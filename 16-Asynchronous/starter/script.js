@@ -344,14 +344,14 @@ TEST DATA: Images in the img folder. Test the error handler by passing a wrong i
 GOOD LUCK 😀
 */
 
+const images = document.querySelector('.images');
 let currentImage;
+
 const createImage = function (imgPath) {
   return new Promise(function (resolve, reject) {
     currentImage = document.createElement('img');
     currentImage.src = imgPath;
     currentImage.addEventListener('load', function () {
-      const images = document.querySelector('.images');
-      console.log(images);
       images.insertAdjacentElement('beforeend', this);
       resolve(this);
     });
