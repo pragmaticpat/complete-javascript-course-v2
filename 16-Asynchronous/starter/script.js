@@ -8,23 +8,23 @@ const renderError = function (msg) {
   // countriesContainer.style.opacity = 1;
 };
 
-// function renderCountry(data, className = '') {
-//   const html = `<article class="country ${className}">
-//   <img class="country__img" src="${data.flag}" />
-//   <div class="country__data">
-//     <h3 class="country__name">${data.name}</h3>
-//     <h4 class="country__region">${data.region}</h4>
-//     <p class="country__row"><span>👫</span>${(
-//       +data.population / 1000000
-//     ).toFixed(1)} million</p>
-//     <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
-//     <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
-//   </div>
-// </article>`;
+function renderCountry(data, className = '') {
+  const html = `<article class="country ${className}">
+  <img class="country__img" src="${data.flag}" />
+  <div class="country__data">
+    <h3 class="country__name">${data.name}</h3>
+    <h4 class="country__region">${data.region}</h4>
+    <p class="country__row"><span>👫</span>${(
+      +data.population / 1000000
+    ).toFixed(1)} million</p>
+    <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+    <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
+  </div>
+</article>`;
 
-//   countriesContainer.insertAdjacentHTML('beforeend', html);
-//   countriesContainer.style.opacity = 1;
-// }
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
+}
 ///////////////////////////////////////
 
 // function getCountryData(country) {
@@ -344,35 +344,62 @@ TEST DATA: Images in the img folder. Test the error handler by passing a wrong i
 GOOD LUCK 😀
 */
 
-const images = document.querySelector('.images');
-let currentImage;
+// const images = document.querySelector('.images');
+// let currentImage;
 
-const createImage = function (imgPath) {
+// const createImage = function (imgPath) {
+//   return new Promise(function (resolve, reject) {
+//     currentImage = document.createElement('img');
+//     currentImage.src = imgPath;
+//     currentImage.addEventListener('load', function () {
+//       images.insertAdjacentElement('beforeend', this);
+//       resolve(this);
+//     });
+//     currentImage.addEventListener('error', err =>
+//       reject(new Error(`Unable to load image at path ${imgPath}, (${err})`))
+//     );
+//   });
+// };
+
+// createImage(`img/img-1.jpg`)
+//   .then(() => console.log(`Image loaded!`))
+//   .then(() => wait(2))
+//   .then(() => {
+//     currentImage.style.display = `none`;
+//     return createImage(`img/img-2.jpg`);
+//   })
+//   .then(() => wait(2))
+//   .then(() => {
+//     currentImage.style.display = `none`;
+//     return createImage(`img/img-3.jpg`);
+//   })
+//   .catch(err => {
+//     console.error(`Something went wrong! ${err}`);
+//   });
+
+const getPosition = function () {
   return new Promise(function (resolve, reject) {
-    currentImage = document.createElement('img');
-    currentImage.src = imgPath;
-    currentImage.addEventListener('load', function () {
-      images.insertAdjacentElement('beforeend', this);
-      resolve(this);
-    });
-    currentImage.addEventListener('error', err =>
-      reject(new Error(`Unable to load image at path ${imgPath}, (${err})`))
-    );
+    navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 };
 
-createImage(`img/img-1.jpg`)
-  .then(() => console.log(`Image loaded!`))
-  .then(() => wait(2))
-  .then(() => {
-    currentImage.style.display = `none`;
-    return createImage(`img/img-2.jpg`);
-  })
-  .then(() => wait(2))
-  .then(() => {
-    currentImage.style.display = `none`;
-    return createImage(`img/img-3.jpg`);
-  })
-  .catch(err => {
-    console.error(`Something went wrong! ${err}`);
-  });
+const whereAmI = async function () {
+  // Gelocation
+  const pos = await getPosition();
+  const { latitude: lat, longitude: lng } = pos.coords;
+
+  // Reverse geocoding
+  const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+  const dataGeo = await resGeo.json();
+
+  // Country data
+  // fetch(`https://restcountries.eu/rest/v2/name/${country}`).then(res => console.log(res))
+  const res = await fetch(
+    `https://restcountries.eu/rest/v2/name/${dataGeo.country}`
+  ); // async await is just syntactic sugar over the .then approach (just above as reference)
+  const data = await res.json();
+  renderCountry(data[0]);
+};
+
+whereAmI('russia');
+console.log('FIRST');
