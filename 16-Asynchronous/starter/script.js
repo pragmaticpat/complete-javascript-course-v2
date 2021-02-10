@@ -436,28 +436,82 @@ const whereAmI = async function () {
 //   }
 // })();
 
-const get3Countries = async function (c1, c2, c3) {
-  try {
-    // const [data1] = await getJSON(
-    //   `https://restcountries.eu/rest/v2/name/${c1}`
-    // );
-    // const [data2] = await getJSON(
-    //   `https://restcountries.eu/rest/v2/name/${c2}`
-    // );
-    // const [data3] = await getJSON(
-    //   `https://restcountries.eu/rest/v2/name/${c3}`
-    // );
+// const get3Countries = async function (c1, c2, c3) {
+//   try {
+//     // const [data1] = await getJSON(
+//     //   `https://restcountries.eu/rest/v2/name/${c1}`
+//     // );
+//     // const [data2] = await getJSON(
+//     //   `https://restcountries.eu/rest/v2/name/${c2}`
+//     // );
+//     // const [data3] = await getJSON(
+//     //   `https://restcountries.eu/rest/v2/name/${c3}`
+//     // );
 
-    const data = await Promise.all([
-      getJSON(`https://restcountries.eu/rest/v2/name/${c1}`),
-      getJSON(`https://restcountries.eu/rest/v2/name/${c2}`),
-      getJSON(`https://restcountries.eu/rest/v2/name/${c3}`),
-    ]);
+//     const data = await Promise.all([
+//       getJSON(`https://restcountries.eu/rest/v2/name/${c1}`),
+//       getJSON(`https://restcountries.eu/rest/v2/name/${c2}`),
+//       getJSON(`https://restcountries.eu/rest/v2/name/${c3}`),
+//     ]);
 
-    console.log(data.map(d => d[0].capital));
-  } catch (err) {
-    console.log(`💩 Error occurred: ${err.message}`);
-  }
-};
+//     console.log(data.map(d => d[0].capital));
+//   } catch (err) {
+//     console.log(`💩 Error occurred: ${err.message}`);
+//   }
+// };
 
-get3Countries('ireland', 'poland', 'hungary');
+// get3Countries('ireland', 'poland', 'hungary');
+
+// promise race
+// (async function () {
+//   const res = await Promise.race([
+//     getJSON(`https://restcountries.eu/rest/v2/name/italy`),
+//     getJSON(`https://restcountries.eu/rest/v2/name/ireland`),
+//     getJSON(`https://restcountries.eu/rest/v2/name/uruguay`),
+//   ]);
+
+//   console.log(res);
+// })();
+
+// const timeout = function (s) {
+//   return new Promise(function (_, reject) {
+//     setTimeout(() => {
+//       reject(new Error('Request took too long!'));
+//     }, s * 1000);
+//   });
+// };
+
+// Promise.race([
+//   getJSON(`https://restcountries.eu/rest/v2/name/italy`),
+//   timeout(0.11),
+// ])
+//   .then(res => console.log(res[0]))
+//   .catch(err => console.log(err));
+
+// // Promise.allSettled
+// Promise.allSettled([
+//   Promise.resolve('success'),
+//   Promise.reject('💩'),
+//   Promise.resolve('success'),
+//   Promise.resolve('another success'),
+// ]).then(res => console.log(res));
+
+// Promise.allSettled
+// Promise.all([
+//   Promise.resolve('success'),
+//   Promise.reject('💩'),
+//   Promise.resolve('success'),
+//   Promise.resolve('another success'),
+// ])
+//   .then(res => console.log(res))
+//   .catch(err => console.log(`An error occurred!`));
+
+// Promise.any
+Promise.any([
+  Promise.resolve('success'),
+  Promise.reject('💩'),
+  Promise.resolve('success'),
+  Promise.resolve('another success'),
+])
+  .then(res => console.log(res))
+  .catch(err => console.log(`An error occurred!`));
