@@ -377,43 +377,43 @@ GOOD LUCK 😀
 //     console.error(`Something went wrong! ${err}`);
 //   });
 
-const getPosition = function () {
-  return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-};
+// const getPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
 
-const whereAmI = async function () {
-  try {
-    // Gelocation
-    const pos = await getPosition();
-    const { latitude: lat, longitude: lng } = pos.coords;
+// const whereAmI = async function () {
+//   try {
+//     // Gelocation
+//     const pos = await getPosition();
+//     const { latitude: lat, longitude: lng } = pos.coords;
 
-    // Reverse geocoding
-    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+//     // Reverse geocoding
+//     const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
 
-    if (!resGeo.ok) throw new Error('Problem getting location data');
-    const dataGeo = await resGeo.json();
+//     if (!resGeo.ok) throw new Error('Problem getting location data');
+//     const dataGeo = await resGeo.json();
 
-    // Country data
-    // fetch(`https://restcountries.eu/rest/v2/name/${country}`).then(res => console.log(res))
-    const res = await fetch(
-      `https://restcountries.eu/rest/v2/name/${dataGeo.countryasdf}`
-    ); // async await is just syntactic sugar over the .then approach (just above as reference)
-    if (!res.ok) throw new Error('Problem getting country');
+//     // Country data
+//     // fetch(`https://restcountries.eu/rest/v2/name/${country}`).then(res => console.log(res))
+//     const res = await fetch(
+//       `https://restcountries.eu/rest/v2/name/${dataGeo.countryasdf}`
+//     ); // async await is just syntactic sugar over the .then approach (just above as reference)
+//     if (!res.ok) throw new Error('Problem getting country');
 
-    const data = await res.json();
-    renderCountry(data[0]);
+//     const data = await res.json();
+//     renderCountry(data[0]);
 
-    return `You are in ${dataGeo.city}, ${dataGeo.country}`;
-  } catch (err) {
-    console.error(`${err} 💩`);
-    renderError(`🔥 ${err.message}`);
+//     return `You are in ${dataGeo.city}, ${dataGeo.country}`;
+//   } catch (err) {
+//     console.error(`${err} 💩`);
+//     renderError(`🔥 ${err.message}`);
 
-    // reject promise returned from async function
-    throw err;
-  }
-};
+//     // reject promise returned from async function
+//     throw err;
+//   }
+// };
 
 // console.log('1: Will get location');
 
@@ -486,7 +486,7 @@ const whereAmI = async function () {
 //   timeout(0.11),
 // ])
 //   .then(res => console.log(res[0]))
-//   .catch(err => console.log(err));
+//   .catch(err => console.error(err));
 
 // // Promise.allSettled
 // Promise.allSettled([
@@ -495,8 +495,9 @@ const whereAmI = async function () {
 //   Promise.resolve('success'),
 //   Promise.resolve('another success'),
 // ]).then(res => console.log(res));
+// // .catch(err => console.log(`An error occurred!`));
 
-// Promise.allSettled
+// // promise.all
 // Promise.all([
 //   Promise.resolve('success'),
 //   Promise.reject('💩'),
@@ -504,14 +505,14 @@ const whereAmI = async function () {
 //   Promise.resolve('another success'),
 // ])
 //   .then(res => console.log(res))
-//   .catch(err => console.log(`An error occurred!`));
+//   .catch(err => console.log(`An error occurred: ${err}`));
 
-// Promise.any
+// // Promise.any
 // Promise.any([
-//   Promise.resolve('success'),
+//   Promise.resolve('promise.any success'),
 //   Promise.reject('💩'),
-//   Promise.resolve('success'),
-//   Promise.resolve('another success'),
+//   Promise.resolve('promise.any success'),
+//   Promise.resolve('another promise.any success'),
 // ])
 //   .then(res => console.log(res))
 //   .catch(err => console.log(`An error occurred!`));
@@ -554,30 +555,48 @@ const createImage = function (imgPath) {
 };
 
 const loadAll = async function (imgArr) {
-  const imgs = Promise.all(
-    imgArr.map(async image => await createImage(image))
-  ).then(res => res.map(image => image.classList.add('parallel')));
+  // My solution
+  // const imgs = Promise.all(
+  //   imgArr.map(async image => await createImage(image))
+  // ).then(res => res.map(image => image.classList.add('parallel')));
 
-  console.log(imgs);
+  //Jonas's solution
+  try {
+    const imgs = imgArr.map(async image => await createImage(image));
+
+    const imgsEl = await Promise.all(imgs);
+    console.log(imgsEl);
+
+    imgsEl.forEach(img => img.classList.add('parallel'));
+
+    console.log(imgs);
+  } catch (err) {
+    console.error(err);
+  }
 };
-
-loadAll([`img/img-1.jpg`, `img/img-2.jpg`, `img/img-3.jpg`]);
 
 const loadNPause = async function () {
   try {
     let img = await createImage(`img/img-1.jpg`);
-    console.log('Image 1 loaded');
+
     await wait(2);
     img.style.display = 'none';
     img = await createImage(`img/img-2.jpg`);
     console.log('Image 1 loaded');
+
     await wait(2);
     img.style.display = 'none';
     img = await createImage(`img/img-3.jpg`);
-    console.log('Image 3 loaded');
+    console.log('Image 2 loaded');
+
     await wait(2);
     img.style.display = 'none';
-  } catch (e) {}
+    console.log('Image 3 loaded');
+  } catch (e) {
+    console.error(e);
+  }
 };
 
-loadNPause();
+loadAll([`img/img-1.jpg`, `img/img-2.jpg`, `img/img-3.jpg`]);
+
+// loadNPause();
