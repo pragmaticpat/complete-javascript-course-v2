@@ -14,11 +14,11 @@
 // //   quantity,
 // //   totalPrice as price,
 // // } from './shoppingCart.js'; <<== avoid doing this! messy
-// import add, { cart } from './shoppingCart.js';
-// add('pizza', 2);
-// add('bread', 25);
-// add('apples', 2);
-// console.log(cart);
+import add, { cart } from './shoppingCart.js';
+add('pizza', 2);
+add('bread', 25);
+add('apples', 2);
+console.log(cart);
 
 // Legacy module pattern
 
@@ -51,7 +51,9 @@
 // ShoppingCart2.addToCart('pizza', 2);
 // console.log(ShoppingCart2);
 
-import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+// import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+import cloneDeep from 'lodash-es';
+// import cloneDeep from 'lodash';
 
 const state = {
   cart: [
@@ -66,3 +68,8 @@ const stateDeepClone = cloneDeep(state);
 state.user.loggedIn = false;
 console.log(stateClone);
 console.log(stateDeepClone); //allows us to disconnect from the source object
+
+// parcel-specific hot module replacement
+if (module.hot) {
+  module.hot.accept();
+}
