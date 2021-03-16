@@ -7,9 +7,9 @@ import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 
 // all coming fro parcel
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }
 
 // https://forkify-api.herokuapp.com/v2
 
@@ -40,7 +40,7 @@ const controlSearchResults = async function () {
 
     await model.loadSearchResults(query);
 
-    resultsView.render(model.state.search.results);
+    resultsView.render(model.getSearchResultsPage());
   } catch (err) {
     console.error(err);
   }
