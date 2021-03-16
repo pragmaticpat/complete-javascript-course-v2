@@ -8,6 +8,7 @@ export const state = {
     query: '',
     results: [],
     currentPage: 1,
+    resultsPerPage: RESULTS_PER_PAGE,
   },
 };
 

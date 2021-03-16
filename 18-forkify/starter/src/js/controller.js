@@ -5,6 +5,8 @@ import 'regenerator-runtime/runtime';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
+import pagination from './views/paginationView.js';
+import paginationView from './views/paginationView.js';
 
 // all coming fro parcel
 // if (module.hot) {
@@ -41,14 +43,22 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     resultsView.render(model.getSearchResultsPage());
+
+    pagination.render(model.state.search);
   } catch (err) {
     console.error(err);
   }
 };
 
+const controlPagination = function (goToPage) {
+  resultsView.render(model.getSearchResultsPage(goToPage));
+  pagination.render(model.state.search);
+};
+
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
 };
 
 init();
