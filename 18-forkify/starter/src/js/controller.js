@@ -8,6 +8,7 @@ import resultsView from './views/resultsView.js';
 import pagination from './views/paginationView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
+import addRecipeView from './views/addRecipeView.js';
 
 // all coming fro parcel
 // if (module.hot) {
@@ -83,6 +84,10 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+const controlAddRecipe = function (newRecipe) {
+  console.log(newRecipe);
+};
+
 const init = function () {
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
@@ -90,6 +95,7 @@ const init = function () {
   recipeView.addHandlerBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
+  addRecipeView.addHandlerUpload(controlAddRecipe);
 };
 
 init();
