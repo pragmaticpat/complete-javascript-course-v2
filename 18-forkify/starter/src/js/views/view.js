@@ -54,6 +54,7 @@ export default class View {
       </svg>
     </div>`;
 
+    this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 

@@ -9,6 +9,7 @@ import pagination from './views/paginationView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
+import { MODAL_CLOSE_SECONDS } from './config.js';
 
 // all coming fro parcel
 // if (module.hot) {
@@ -84,8 +85,24 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
-const controlAddRecipe = function (newRecipe) {
-  console.log(newRecipe);
+const controlAddRecipe = async function (newRecipe) {
+  try {
+    addRecipeView.renderSpinner();
+
+    await model.uploadRecipe(newRecipe);
+
+    recipeView.render(model.state.recipe);
+
+    addRecipeView.renderMessage();
+
+    // close form window
+    setTimeout(() => {
+      addRecipeView.toggleWindow();
+    }, MODAL_CLOSE_SECONDS);
+  } catch (err) {
+    console.error(`💩 ${err}`);
+    addRecipeView.renderError(err);
+  }
 };
 
 const init = function () {
